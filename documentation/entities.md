@@ -13,7 +13,7 @@
 
 * _id_: __primary key, uuid__;
 * _name_: __varchar(127), not null__;
-* _country_: __varchar(127)__;
+* _country_: __Country__;
 * _description_: __varchar(255)__;
 
 ### Platform
@@ -57,7 +57,7 @@
 * _id_: __primary key, uuid__;
 * _game_: __Game, not null__;
 * _region_: __Game, not null__;
-* _country_: __Game, not null__;
+* _country_: __Country, not null__;
 * _file_: __File, not null__;
 * _description_: __varchar(255)__;
 
