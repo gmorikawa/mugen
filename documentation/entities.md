@@ -2,6 +2,13 @@
 
 ## Classes
 
+### User
+
+* _id_: __primary key, uuid__;
+* _email_: __varchar(127), unique, not null__;
+* _username_: __varchar(127), unique, not null__;
+* _password_: __varchar(255), not null__;
+
 ### Company
 
 * _id_: __primary key, uuid__;
