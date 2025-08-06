@@ -79,8 +79,10 @@ Observations: _size_ is measured in bytes.
 
 * _id_: __primary key, uuid__;
 * _name_: __varchar(127), not null__;
+* _concrete\_name_: __varchar(127), not null__;
 * _path_: __varchar(255), not null__;
 * _size_: __integer, not null__;
+* _state_: __FileState, not null__;
 
 ## Enums
 
@@ -92,6 +94,7 @@ Observations: _size_ is measured in bytes.
 
 ### FileState
 
+* _Pending_;
 * _Uploading_;
 * _Available_;
 * _Corrupted_;
