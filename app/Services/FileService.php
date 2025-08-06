@@ -5,18 +5,20 @@ namespace App\Services;
 use App\Enums\FileState;
 use App\Models\File;
 
-use Illuminate\Support\Facades\Storage;
-
-class FileService {
-    function getAll() {
+class FileService
+{
+    function getAll()
+    {
         return File::all();
     }
 
-    function getById(String $id) {
+    function getById(String $id)
+    {
         return File::find($id);
     }
 
-    function create(File $entity) {
+    function create(File $entity)
+    {
         $entity->state = FileState::PENDING->value;
 
         $entity->save();
@@ -24,7 +26,8 @@ class FileService {
         return $entity;
     }
 
-    function update(String $id, File $entity) {
+    function update(String $id, File $entity)
+    {
         $file = $this->getById($id);
 
         if ($file) {
@@ -37,11 +40,12 @@ class FileService {
         return $file;
     }
 
-    function upload(String $id, $stream) {
+    function upload(String $id, $stream)
+    {
+        $storage = new StorageService();
         $file = $this->getById($id);
 
-        $success = Storage::disk('local')
-            ->putFileAs($file->path, $stream, $file->name);
+        $success = $storage->write($file, $stream);
 
         if ($success) {
             return $this->changeState($id, FileState::AVAILABLE);
@@ -50,18 +54,35 @@ class FileService {
         }
     }
 
-    function remove(String $id) {
-        $removedEntities = File::destroy($id);
+    function download(String $id)
+    {
+        $storage = new StorageService();
+        $file = $this->getById($id);
 
-        if ($removedEntities > 0) {
-            // remove file from storage
+        $exists = $storage->exists($file);
+
+        if ($exists) {
+            return $storage->read($file);
+        } else {
+            return $this->changeState($id, FileState::CORRUPTED);
         }
-
-        return $removedEntities;
     }
 
-    function changeState(String $id, FileState $state) {
+    function remove(String $id)
+    {
+        $storage = new StorageService();
+        $file = $this->getById($id);
+
+        if ($storage->exists($file)) {
+            $storage->remove($file);
+        }
+
+        return File::destroy($id);
+    }
+
+    function changeState(String $id, FileState $state)
+    {
         return File::where('id', $id)
-            ->update([ 'state' => $state->value ]);
+            ->update(['state' => $state->value]);
     }
 }

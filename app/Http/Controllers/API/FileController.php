@@ -48,6 +48,12 @@ class FileController extends Controller {
         return $service->upload($id, $stream);
     }
 
+    function download(Request $request, String $id) {
+        $service = new FileService();
+
+        return $service->download($id);
+    }
+
     private function extractEntityFromRequest(Request $request) {
         return new File([
             'name' => $request->input('name'),

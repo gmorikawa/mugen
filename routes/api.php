@@ -24,3 +24,4 @@ Route::post('/files', [FileController::class, 'create']);
 Route::patch('/files/{id}', [FileController::class, 'update']);
 Route::delete('/files/{id}', [FileController::class, 'remove']);
 Route::post('/files/{id}/upload', [FileController::class, 'upload']);
+Route::get('/files/{id}/download', [FileController::class, 'download']);
