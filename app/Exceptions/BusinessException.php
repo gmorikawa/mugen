@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Enums\ExceptionType;
+
 abstract class BusinessException extends ServerException {
     public function __construct()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Enums\ExceptionType;
 use Exception;
 
 class ApplicationException extends ServerException {

@@ -3,49 +3,51 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Services\CompanyService;
 use App\Models\Company;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller {
-    function getAll() {
-        return Company::all();
+class CompanyController extends Controller
+{
+    function getAll()
+    {
+        $service = new CompanyService();
+
+        return $service->getAll();
     }
 
-    function getById(Request $request, String $id) {
-        return Company::where('id', $id)->get();
+    function getById(Request $request, String $id)
+    {
+        $service = new CompanyService();
+
+        return $service->getById($id);
     }
 
-    function create(Request $request) {
+    function create(Request $request)
+    {
+        $service = new CompanyService();
         $entity = $this->extractEntityFromRequest($request);
 
-        $entity->save();
-
-        return $entity;
+        return $service->create($entity);
     }
 
-    function update(Request $request, String $id) {
+    function update(Request $request, String $id)
+    {
+        $service = new CompanyService();
         $entity = $this->extractEntityFromRequest($request);
 
-        $country = Company::find($id);
-
-        if ($country) {
-            $country->name = $entity->name;
-            $country->country_id = $entity->country_id;
-            $country->description = $entity->description;
-        }
-
-        $country->save();
-
-        return $country;
+        return $service->update($id, $entity);
     }
 
-    function remove(Request $request, String $id) {
-        $count = Company::destroy($id);
+    function remove(Request $request, String $id)
+    {
+        $service = new CompanyService();
 
-        return $count > 0;
+        return $service->remove($id);
     }
 
-    private function extractEntityFromRequest(Request $request) {
+    private function extractEntityFromRequest(Request $request)
+    {
         return new Company([
             'name' => $request->input('name'),
             'country_id' => $request->input('country')['id'] ?? $request->input('country'),

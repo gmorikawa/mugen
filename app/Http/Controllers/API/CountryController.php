@@ -3,48 +3,51 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Services\CountryService;
 use App\Models\Country;
 use Illuminate\Http\Request;
 
-class CountryController extends Controller {
-    function getAll() {
-        return Country::all();
+class CountryController extends Controller
+{
+    function getAll()
+    {
+        $service = new CountryService();
+
+        return $service->getAll();
     }
 
-    function getById(Request $request, String $id) {
-        return Country::where('id', $id)->get();
+    function getById(Request $request, String $id)
+    {
+        $service = new CountryService();
+
+        return $service->getbyId($id);
     }
 
-    function create(Request $request) {
+    function create(Request $request)
+    {
+        $service = new CountryService();
         $entity = $this->extractEntityFromRequest($request);
 
-        $entity->save();
-
-        return $entity;
+        return $service->create($entity);
     }
 
-    function update(Request $request, String $id) {
+    function update(Request $request, String $id)
+    {
+        $service = new CountryService();
         $entity = $this->extractEntityFromRequest($request);
 
-        $country = Country::find($id);
-
-        if ($country) {
-            $country->name = $entity->name;
-            $country->flag = $entity->flag;
-        }
-
-        $country->save();
-
-        return $country;
+        return $service->update($id, $entity);
     }
 
-    function remove(Request $request, String $id) {
-        $count = Country::destroy($id);
+    function remove(Request $request, String $id)
+    {
+        $service = new CountryService();
 
-        return $count > 0;
+        return $service->remove($id);
     }
 
-    private function extractEntityFromRequest(Request $request) {
+    private function extractEntityFromRequest(Request $request)
+    {
         return new Country([
             'name' => $request->input('name'),
             'flag' => $request->input('flag') ?? ''

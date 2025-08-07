@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Enums;
 
 enum ExceptionType: String {
     case BUSINESS = "BUSINESS";
