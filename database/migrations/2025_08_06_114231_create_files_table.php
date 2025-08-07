@@ -18,10 +18,21 @@ return new class extends Migration
             $table->enum('state', array_column(FileState::cases(), 'value'))->default(FileState::PENDING->value);
             $table->timestamps();
         });
+
+        Schema::table('countries', function (Blueprint $table) {
+            $table->dropColumn('flag');
+            $table->foreignUuid('flag_id');
+            $table->foreign('flag_id')->references('id')->on('files')->onDelete('cascade');
+        });
     }
 
     public function down(): void
     {
+        Schema::table('countries', function (Blueprint $table) {
+            $table->string('flag', 127);
+            $table->dropColumn('flag_id');
+        });
+
         Schema::dropIfExists('files');
     }
 };

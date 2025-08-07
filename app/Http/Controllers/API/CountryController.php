@@ -50,7 +50,7 @@ class CountryController extends Controller
     {
         return new Country([
             'name' => $request->input('name'),
-            'flag' => $request->input('flag') ?? ''
+            'flag_id' => $request->input('flag')['id'] ?? $request->input('flag'),
         ]);
     }
 }
