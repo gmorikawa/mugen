@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\FileState;
+use App\Exceptions\File\FileNotFoundException;
 use App\Models\File;
 
 class FileService
@@ -64,7 +65,8 @@ class FileService
         if ($exists) {
             return $storage->read($file);
         } else {
-            return $this->changeState($id, FileState::CORRUPTED);
+            $this->changeState($id, FileState::CORRUPTED);
+            throw new FileNotFoundException();
         }
     }
 
