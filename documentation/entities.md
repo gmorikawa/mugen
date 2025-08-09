@@ -19,8 +19,8 @@
 ### Platform
 
 * _id_: __primary key, uuid__;
-* _name_: __varchar(127), not null__;
-* _code_: __varchar(63), not null__;
+* _name_: __varchar(127), unique, not null__;
+* _abbreviation_: __varchar(63), unique, not null__;
 * _type_: __PlatformType, not null__;
 * _developer_: __Company, not null__;
 * _manufacturer_: __Company, not null__;
