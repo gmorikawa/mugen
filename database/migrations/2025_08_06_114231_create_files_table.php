@@ -21,7 +21,7 @@ return new class extends Migration
 
         Schema::table('countries', function (Blueprint $table) {
             $table->dropColumn('flag');
-            $table->foreignUuid('flag_id');
+            $table->foreignUuid('flag_id')->nullable(true);
             $table->foreign('flag_id')->references('id')->on('files')->onDelete('cascade');
         });
     }
