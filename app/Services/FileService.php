@@ -34,9 +34,9 @@ class FileService
         if ($file) {
             $file->name = $entity->name;
             $file->path = $entity->path;
-        }
 
-        $file->save();
+            $file->save();
+        }
 
         return $file;
     }

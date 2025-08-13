@@ -29,27 +29,35 @@
 
 * _id_: __primary key, uuid__;
 * _title_: __varchar(127), not null__;
-* _developer_: __Company, not null__;
-* _publisher_: __Company, not null__;
 * _platform_: __Platform, not null__;
+* _release\_date_: __date__
+
+### Category
+
+* _id_: __primary key, uuid__;
+* _name_: __varchar(127), not null, unique__;
+* _description_: __varchar(255)__;
 
 ### GameCategory
 
-* _id_: __primary key, uuid__;
 * _game_: __Game, not null__;
 * _category_: __Category, not null__;
+
+### GameDeveloper
+
+* _game_: __Game, not null__;
+* _company_: __Company, not null__;
+
+### GamePublisher
+
+* _game_: __Game, not null__;
+* _company_: __Company, not null__;
 
 ### Cover
 
 * _id_: __primary key, uuid__;
 * _game_: __Game, not null__;
 * _file_: __File, not null__;
-* _descriptio_: __varchar(255)__;
-
-### Category
-
-* _id_: __primary key, uuid__;
-* _name_: __varchar(127), not null__;
 * _description_: __varchar(255)__;
 
 ### Image
@@ -57,9 +65,18 @@
 * _id_: __primary key, uuid__;
 * _game_: __Game, not null__;
 * _region_: __Game, not null__;
-* _country_: __Country, not null__;
 * _file_: __File, not null__;
 * _description_: __varchar(255)__;
+
+### Language
+
+* _id_: __primary key, uuid__;
+* _name_: __varchar(127), not null__;
+
+### ImageLanguage
+
+* _image_: __Image, not null__;
+* _language_: __Language, not null__;
 
 ### Region
 

@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\API\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\API\FileController;
+use App\Http\Controllers\API\GameController;
 use App\Http\Controllers\API\PlatformController;
 
 Route::group(['prefix' => 'countries'], function () {
@@ -39,4 +41,20 @@ Route::group(['prefix' => 'platforms'], function () {
     Route::post('/', [PlatformController::class, 'create']);
     Route::patch('/{id}', [PlatformController::class, 'update']);
     Route::delete('/{id}', [PlatformController::class, 'remove']);
+});
+
+Route::group(['prefix' => 'categories'], function () {
+    Route::get('/', [CategoryController::class, 'getAll']);
+    Route::get('/{id}', [CategoryController::class, 'getById']);
+    Route::post('/', [CategoryController::class, 'create']);
+    Route::patch('/{id}', [CategoryController::class, 'update']);
+    Route::delete('/{id}', [CategoryController::class, 'remove']);
+});
+
+Route::group(['prefix' => 'games'], function () {
+    Route::get('/', [GameController::class, 'getAll']);
+    Route::get('/{id}', [GameController::class, 'getById']);
+    Route::post('/', [GameController::class, 'create']);
+    Route::patch('/{id}', [GameController::class, 'update']);
+    Route::delete('/{id}', [GameController::class, 'remove']);
 });

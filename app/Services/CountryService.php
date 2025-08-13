@@ -4,35 +4,41 @@ namespace App\Services;
 
 use App\Models\Country;
 
-class CountryService {
-    function getAll() {
+class CountryService
+{
+    function getAll()
+    {
         return Country::all();
     }
 
-    function getById(String $id) {
+    function getById(String $id)
+    {
         return Country::find($id);
     }
 
-    function create(Country $entity) {
+    function create(Country $entity)
+    {
         $entity->save();
 
         return $entity;
     }
 
-    function update(String $id, Country $entity) {
+    function update(String $id, Country $entity)
+    {
         $country = $this->getById($id);
 
         if ($country) {
             $country->name = $entity->name;
             $country->flag = $entity->flag;
-        }
 
-        $country->save();
+            $country->save();
+        }
 
         return $country;
     }
 
-    function remove(String $id) {
+    function remove(String $id)
+    {
         return Country::destroy($id);
     }
 }

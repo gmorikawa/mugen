@@ -61,9 +61,9 @@ class PlatformService
             $platform->type = $entity->type;
             $platform->developer_id = $entity->developer_id;
             $platform->manufacturer_id = $entity->manufacturer_id;
-        }
 
-        $platform->save();
+            $platform->save();
+        }
 
         return $platform;
     }
@@ -73,13 +73,15 @@ class PlatformService
         return Platform::destroy($id);
     }
 
-    function isNameUnique(String $name, String $ignoreId = '') {
+    function isNameUnique(String $name, String $ignoreId = '')
+    {
         $platform = $this->getByName($name);
 
         return is_null($platform) || $platform->id == $ignoreId;
     }
 
-    function isAbbreviationUnique(String $abbreviation, String $ignoreId = '') {
+    function isAbbreviationUnique(String $abbreviation, String $ignoreId = '')
+    {
         $platform = $this->getByAbbreviation($abbreviation);
 
         return is_null($platform) || $platform->id == $ignoreId;
