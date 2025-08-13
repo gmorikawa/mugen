@@ -64,7 +64,7 @@
 
 * _id_: __primary key, uuid__;
 * _game_: __Game, not null__;
-* _region_: __Game, not null__;
+* _color\_encoding_: __ColorEncoding, not null__;
 * _file_: __File, not null__;
 * _description_: __varchar(255)__;
 

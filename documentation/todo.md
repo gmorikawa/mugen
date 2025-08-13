@@ -14,7 +14,7 @@
 [ ] Language
 [ ] Image
 [ ] ImageLanguage
-[ ] ColorEncoding
+[x] ColorEncoding
 [x] Country
 [x] File
 
