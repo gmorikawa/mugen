@@ -5,10 +5,10 @@
 [x] User
 [x] Company
 [x] Platform
-[ ] Game
-[ ] GameCategory
+[x] Game
+[x] GameCategory
 [ ] Cover
-[ ] Category
+[x] Category
 [ ] Image
 [ ] Region
 [x] Country
