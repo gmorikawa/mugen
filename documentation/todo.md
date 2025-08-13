@@ -6,11 +6,15 @@
 [x] Company
 [x] Platform
 [x] Game
-[x] GameCategory
-[ ] Cover
 [x] Category
+[x] GameCategory
+[x] GameDeveloper
+[x] GamePublisher
+[ ] Cover
+[ ] Language
 [ ] Image
-[ ] Region
+[ ] ImageLanguage
+[ ] ColorEncoding
 [x] Country
 [x] File
 
@@ -20,10 +24,14 @@
 [ ] Company
 [ ] Platform
 [ ] Game
-[ ] GameCategory
-[ ] Cover
 [ ] Category
+[ ] GameCategory
+[ ] GameDeveloper
+[ ] GamePublisher
+[ ] Cover
+[ ] Language
 [ ] Image
-[ ] Region
+[ ] ImageLanguage
+[ ] ColorEncoding
 [ ] Country
 [ ] File

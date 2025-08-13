@@ -78,7 +78,7 @@
 * _image_: __Image, not null__;
 * _language_: __Language, not null__;
 
-### Region
+### ColorEncoding
 
 * _id_: __primary key, uuid__;
 * _name_: __varchar(127), not null__;
