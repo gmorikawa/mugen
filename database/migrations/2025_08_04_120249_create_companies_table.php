@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 127);
-            $table->foreignUuid('country_id');
+            $table->foreignUuid('country_id')->nullable(true);
             $table->string('description', 255);
             $table->timestamps();
 
