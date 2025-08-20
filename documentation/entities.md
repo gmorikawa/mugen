@@ -62,6 +62,8 @@
 
 ### Image
 
+Image in this application represents the data of a game the way it was extracted from the original media. It is very common to call _ROMs_ when reffering to images of cartridges. But for all other cases, like playstation games which comes in CD, it might be an [incorrect term](https://www.reddit.com/r/Roms/comments/18jsvwa/why_are_roms_called_as_roms_i_mean_rom_stands_for/). A _image_ or _game dump_ are more generic terms that encompasses all cases.
+
 * _id_: __primary key, uuid__;
 * _game_: __Game, not null__;
 * _color\_encoding_: __ColorEncoding, not null__;

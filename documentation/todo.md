@@ -21,7 +21,7 @@
 ## Testing CRUD
 
 [ ] User
-[ ] Company
+[x] Company
 [ ] Platform
 [ ] Game
 [ ] Category
@@ -33,5 +33,5 @@
 [ ] Image
 [ ] ImageLanguage
 [ ] ColorEncoding
-[ ] Country
-[ ] File
+[x] Country
+[x] File

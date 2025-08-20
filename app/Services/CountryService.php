@@ -29,7 +29,7 @@ class CountryService
 
         if ($country) {
             $country->name = $entity->name;
-            $country->flag = $entity->flag;
+            $country->flag_id = $entity->flag_id;
 
             $country->save();
         }
