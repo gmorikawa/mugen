@@ -9,6 +9,7 @@ use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\API\FileController;
 use App\Http\Controllers\API\GameController;
 use App\Http\Controllers\API\ImageController;
+use App\Http\Controllers\API\LanguageController;
 use App\Http\Controllers\API\PlatformController;
 
 Route::group(['prefix' => 'countries'], function () {
@@ -75,4 +76,12 @@ Route::group(['prefix' => 'images'], function () {
     Route::post('/', [ImageController::class, 'create']);
     Route::patch('/{id}', [ImageController::class, 'update']);
     Route::delete('/{id}', [ImageController::class, 'remove']);
+});
+
+Route::group(['prefix' => 'languages'], function () {
+    Route::get('/', [LanguageController::class, 'getAll']);
+    Route::get('/{id}', [LanguageController::class, 'getById']);
+    Route::post('/', [LanguageController::class, 'create']);
+    Route::patch('/{id}', [LanguageController::class, 'update']);
+    Route::delete('/{id}', [LanguageController::class, 'remove']);
 });

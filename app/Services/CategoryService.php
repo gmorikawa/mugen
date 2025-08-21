@@ -58,8 +58,8 @@ class CategoryService
 
     function isNameUnique(String $name, String $ignoreId = '')
     {
-        $platform = $this->getByName($name);
+        $category = $this->getByName($name);
 
-        return is_null($platform) || $platform->id == $ignoreId;
+        return is_null($category) || $category->id == $ignoreId;
     }
 }

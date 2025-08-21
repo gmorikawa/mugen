@@ -74,6 +74,7 @@ Image in this application represents the data of a game the way it was extracted
 
 * _id_: __primary key, uuid__;
 * _name_: __varchar(127), not null__;
+* _iso\_code_: __varchar(7), not null__;
 
 ### ImageLanguage
 

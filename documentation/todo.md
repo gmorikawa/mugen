@@ -11,9 +11,9 @@
 [x] GameDeveloper
 [x] GamePublisher
 [ ] Cover
-[ ] Language
+[x] Language
 [x] Image
-[ ] ImageLanguage
+[x] ImageLanguage
 [x] ColorEncoding
 [x] Country
 [x] File
@@ -26,9 +26,9 @@
 [x] Game
 [x] Category
 [ ] Cover
-[ ] Language
+[x] Language
 [x] Image
-[ ] ImageLanguage
+[x] ImageLanguage
 [x] ColorEncoding
 [x] Country
 [x] File

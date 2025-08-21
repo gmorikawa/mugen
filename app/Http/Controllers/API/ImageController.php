@@ -34,7 +34,7 @@ class ImageController extends Controller
             'description' => $data['description'] ?? ''
         ]);
 
-        return $service->create($entity);
+        return $service->create($entity, $data['languages'] ?? []);
     }
 
     function update(Request $request, String $id)
@@ -49,7 +49,7 @@ class ImageController extends Controller
             'description' => $data['description'] ?? ''
         ]);
 
-        return $service->update($id, $entity);
+        return $service->update($id, $entity, $data['languages'] ?? []);
     }
 
     function remove(Request $request, String $id)
@@ -66,6 +66,8 @@ class ImageController extends Controller
             'color_encoding_id' => 'required|exists:color_encodings,id',
             'file_id' => 'required|exists:files,id',
             'description' => 'nullable|string',
+            'languages' => 'array',
+            'languages.*' => 'exists:companies,id',
         ]);
     }
 }

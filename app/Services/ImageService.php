@@ -16,14 +16,16 @@ class ImageService
         return Image::find($id);
     }
 
-    function create(Image $entity)
+    function create(Image $entity, $languages)
     {
         $entity->save();
+
+        $entity->languages()->sync($languages);
 
         return $entity;
     }
 
-    function update(String $id, Image $entity)
+    function update(String $id, Image $entity, $languages)
     {
         $image = $this->getById($id);
 
@@ -34,6 +36,8 @@ class ImageService
             $image->description = $entity->description;
 
             $image->save();
+
+            $entity->languages()->sync($languages);
         }
 
         return $image;
