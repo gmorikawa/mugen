@@ -23,6 +23,13 @@ class Game extends Model
         'release_date'
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'release_date' => 'datetime',
+        ];
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'game_category')

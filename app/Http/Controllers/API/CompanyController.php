@@ -50,7 +50,7 @@ class CompanyController extends Controller
     {
         return new Company([
             'name' => $request->input('name'),
-            'country_id' => $request->input('country')['id'] ?? $request->input('country'),
+            'country_id' => $request->input('country')['id'] ?? $request->input('country') ?? $request->input('country_id'),
             'description' => $request->input('description') ?? ''
         ]);
     }

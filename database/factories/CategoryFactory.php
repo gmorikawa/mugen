@@ -2,20 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Company;
-use App\Models\Country;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CompanyFactory extends Factory
+class CategoryFactory extends Factory
 {
-    protected $model = Company::class;
+    protected $model = Category::class;
 
     public function definition(): array
     {
         return [
             'name' => fake()->company(),
             'description' => fake()->realText(200, 2),
-            'country_id' => Country::factory()
         ];
     }
 }

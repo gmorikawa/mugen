@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class CreateFileTest extends TestCase
 {
-    public function test_it_creates_a_file(): void
+    public function test_creates_file(): void
     {
         $file = File::factory()->makeOne();
 
@@ -18,9 +18,6 @@ class CreateFileTest extends TestCase
         $created = $response->decodeResponseJson();
 
         $this->assertNotEmpty($created['id']);
-        $this->assertEquals($created['name'], $file->name);
-        // $this->assertEquals($created['concrete_name'], $file->name);
-        // $this->assertEquals($created['path'], $file->path);
-        // $this->assertEquals($created['size'], $file->size);
+        $this->assertEquals($file->name, $created['name']);
     }
 }

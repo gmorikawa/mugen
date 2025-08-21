@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class RemoveCompanyTest extends TestCase
 {
-    public function test_it_removes_a_company(): void
+    public function test_removes_company(): void
     {
         $company = Company::factory()->create();
 

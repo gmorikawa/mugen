@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 
 class Platform extends Model
@@ -26,11 +26,11 @@ class Platform extends Model
         'manufacturer_id'
     ];
 
-    public function developer(): HasOne {
-        return $this->hasOne(Company::class, 'developer_id');
+    public function developer(): BelongsTo {
+        return $this->belongsTo(Company::class, 'developer_id');
     }
 
-    public function manufacturer(): HasOne {
-        return $this->hasOne(Company::class, 'manufacturer_id');
+    public function manufacturer(): BelongsTo {
+        return $this->belongsTo(Company::class, 'manufacturer_id');
     }
 }

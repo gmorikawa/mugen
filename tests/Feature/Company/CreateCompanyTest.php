@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class CreateCompanyTest extends TestCase
 {
-    public function test_it_creates_a_company(): void
+    public function test_creates_company(): void
     {
         $company = Company::factory()->makeOne();
 
@@ -18,7 +18,8 @@ class CreateCompanyTest extends TestCase
         $created = $response->decodeResponseJson();
 
         $this->assertNotEmpty($created['id']);
-        $this->assertEquals($created['name'], $company->name);
-        $this->assertEquals($created['description'], $company->description);
+        $this->assertEquals($company->name, $created['name']);
+        $this->assertEquals($company->description, $created['description']);
+        $this->assertEquals($company->country_id, $created['country_id']);
     }
 }

@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class RemoveCountryTest extends TestCase
 {
-    public function test_it_removes_a_country(): void
+    public function test_removes_country(): void
     {
         $country = Country::factory()->create();
 

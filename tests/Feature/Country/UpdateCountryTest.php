@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class UpdateCountryTest extends TestCase
 {
-    public function test_it_updates_a_country(): void
+    public function test_updates_country(): void
     {
         $former = Country::factory()->create();
         $latter = Country::factory()->makeOne();
@@ -18,9 +18,8 @@ class UpdateCountryTest extends TestCase
 
         $updated = $response->decodeResponseJson();
 
-        $this->assertEquals($updated['id'], $former->id);
-        $this->assertEquals($updated['name'], $latter->name);
-
-        $this->assertNotEquals($updated['name'], $former->name);
+        $this->assertEquals($former->id, $updated['id']);
+        $this->assertEquals($latter->name, $updated['name']);
+        $this->assertEquals($latter->flag_id, $updated['flag_id']);
     }
 }

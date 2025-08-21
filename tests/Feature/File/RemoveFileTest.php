@@ -7,14 +7,14 @@ use Tests\TestCase;
 
 class RemoveFileTest extends TestCase
 {
-    public function test_it_removes_a_file(): void
+    public function test_removes_file(): void
     {
-        $company = File::factory()->create();
+        $file = File::factory()->create();
 
         $response = $this
-            ->delete("/api/files/{$company->id}")
+            ->delete("/api/files/{$file->id}")
             ->assertStatus(200);
 
-        $this->assertDatabaseMissing('files', $company->toArray());
+        $this->assertDatabaseMissing('files', $file->toArray());
     }
 }

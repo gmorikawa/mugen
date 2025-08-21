@@ -2,20 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Company;
-use App\Models\Country;
+use App\Models\ColorEncoding;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CompanyFactory extends Factory
+class ColorEncodingFactory extends Factory
 {
-    protected $model = Company::class;
+    protected $model = ColorEncoding::class;
 
     public function definition(): array
     {
         return [
             'name' => fake()->company(),
             'description' => fake()->realText(200, 2),
-            'country_id' => Country::factory()
         ];
     }
 }

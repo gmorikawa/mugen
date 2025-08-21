@@ -52,8 +52,8 @@ class PlatformController extends Controller
             'name' => $request->input('name'),
             'abbreviation' => $request->input('abbreviation'),
             'type' => $request->input('type'),
-            'developer_id' => $request->input('developer')['id'] ?? $request->input('developer'),
-            'manufacturer_id' => $request->input('manufacturer')['id'] ?? $request->input('manufacturer'),
+            'developer_id' => $request->input('developer')['id'] ?? $request->input('developer') ?? $request->input('developer_id'),
+            'manufacturer_id' => $request->input('manufacturer')['id'] ?? $request->input('manufacturer')  ?? $request->input('manufacturer_id'),
         ]);
     }
 }

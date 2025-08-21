@@ -2,7 +2,7 @@
 
 ## Entities CRUD
 
-[x] User
+[ ] User
 [x] Company
 [x] Platform
 [x] Game
@@ -22,16 +22,13 @@
 
 [ ] User
 [x] Company
-[ ] Platform
-[ ] Game
-[ ] Category
-[ ] GameCategory
-[ ] GameDeveloper
-[ ] GamePublisher
+[x] Platform
+[x] Game
+[x] Category
 [ ] Cover
 [ ] Language
 [ ] Image
 [ ] ImageLanguage
-[ ] ColorEncoding
+[x] ColorEncoding
 [x] Country
 [x] File

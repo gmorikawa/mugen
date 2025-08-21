@@ -29,11 +29,11 @@ class GameController extends Controller
         $data = $this->extractDataFromRequest($request);
         $entity = new Game([
             'title' => $data['title'],
-            'platform_id' => $data['platform'],
+            'platform_id' => $data['platform_id'],
             'release_date' => $data['release_date'] ?? null
         ]);
 
-        return $service->create($entity, $data['categories'], $data['developers'], $data['publishers']);
+        return $service->create($entity, $data['categories'] ?? [], $data['developers'] ?? [], $data['publishers'] ?? []);
     }
 
     function update(Request $request, String $id)
@@ -43,11 +43,11 @@ class GameController extends Controller
 
         $entity = new Game([
             'title' => $data['title'],
-            'platform_id' => $data['platform'],
+            'platform_id' => $data['platform_id'],
             'release_date' => $data['release_date'] ?? null
         ]);
 
-        return $service->update($id, $entity, $data['categories'], $data['developers'], $data['publishers']);
+        return $service->update($id, $entity, $data['categories'] ?? [], $data['developers'] ?? [], $data['publishers'] ?? []);
     }
 
     function remove(Request $request, String $id)
@@ -61,8 +61,8 @@ class GameController extends Controller
     {
         return $request->validate([
             'title' => 'required|string',
-            'release_date' => 'nullable|integer',
-            'platform' => 'required|exists:platforms,id',
+            'release_date' => 'nullable|date',
+            'platform_id' => 'required|exists:platforms,id',
             'developers' => 'array',
             'developers.*' => 'exists:companies,id',
             'publishers' => 'array',

@@ -19,6 +19,7 @@ class CreateCountryTest extends TestCase
         $created = $response->decodeResponseJson();
 
         $this->assertNotEmpty($created['id']);
-        $this->assertEquals($created['name'], $country->name);
+        $this->assertEquals($country->name, $created['name']);
+        $this->assertEquals($country->flag_id, $created['flag_id']);
     }
 }

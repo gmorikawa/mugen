@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class UpdateCompanyTest extends TestCase
 {
-    public function test_it_updates_a_company(): void
+    public function test_updates_company(): void
     {
         $former = Company::factory()->create();
         $latter = Company::factory()->makeOne();
@@ -18,11 +18,9 @@ class UpdateCompanyTest extends TestCase
 
         $updated = $response->decodeResponseJson();
 
-        $this->assertEquals($updated['id'], $former->id);
-        $this->assertEquals($updated['name'], $latter->name);
-        $this->assertEquals($updated['description'], $latter->description);
-
-        $this->assertNotEquals($updated['name'], $former->name);
-        $this->assertNotEquals($updated['description'], $former->description);
+        $this->assertEquals($former->id, $updated['id']);
+        $this->assertEquals($latter->name, $updated['name']);
+        $this->assertEquals($latter->description, $updated['description']);
+        $this->assertEquals($latter->country_id, $updated['country_id']);
     }
 }

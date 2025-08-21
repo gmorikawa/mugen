@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ColorEncodingController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\CompanyController;
@@ -57,4 +58,12 @@ Route::group(['prefix' => 'games'], function () {
     Route::post('/', [GameController::class, 'create']);
     Route::patch('/{id}', [GameController::class, 'update']);
     Route::delete('/{id}', [GameController::class, 'remove']);
+});
+
+Route::group(['prefix' => 'color-encodings'], function () {
+    Route::get('/', [ColorEncodingController::class, 'getAll']);
+    Route::get('/{id}', [ColorEncodingController::class, 'getById']);
+    Route::post('/', [ColorEncodingController::class, 'create']);
+    Route::patch('/{id}', [ColorEncodingController::class, 'update']);
+    Route::delete('/{id}', [ColorEncodingController::class, 'remove']);
 });
