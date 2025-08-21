@@ -12,7 +12,7 @@
 [x] GamePublisher
 [ ] Cover
 [ ] Language
-[ ] Image
+[x] Image
 [ ] ImageLanguage
 [x] ColorEncoding
 [x] Country
@@ -27,7 +27,7 @@
 [x] Category
 [ ] Cover
 [ ] Language
-[ ] Image
+[x] Image
 [ ] ImageLanguage
 [x] ColorEncoding
 [x] Country

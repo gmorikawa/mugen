@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('color_encodings', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 127);
-            $table->string('description', 255);
+            $table->string('description', 255)->nullable(true);
             $table->timestamps();
         });
     }

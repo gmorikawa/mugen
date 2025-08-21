@@ -8,6 +8,7 @@ use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\API\FileController;
 use App\Http\Controllers\API\GameController;
+use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\PlatformController;
 
 Route::group(['prefix' => 'countries'], function () {
@@ -66,4 +67,12 @@ Route::group(['prefix' => 'color-encodings'], function () {
     Route::post('/', [ColorEncodingController::class, 'create']);
     Route::patch('/{id}', [ColorEncodingController::class, 'update']);
     Route::delete('/{id}', [ColorEncodingController::class, 'remove']);
+});
+
+Route::group(['prefix' => 'images'], function () {
+    Route::get('/', [ImageController::class, 'getAll']);
+    Route::get('/{id}', [ImageController::class, 'getById']);
+    Route::post('/', [ImageController::class, 'create']);
+    Route::patch('/{id}', [ImageController::class, 'update']);
+    Route::delete('/{id}', [ImageController::class, 'remove']);
 });

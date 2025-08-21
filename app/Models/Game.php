@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 
 class Game extends Model
@@ -28,6 +29,10 @@ class Game extends Model
         return [
             'release_date' => 'datetime',
         ];
+    }
+
+    public function platform(): BelongsTo {
+        return $this->belongsTo(Platform::class, 'platform_id');
     }
 
     public function categories()
