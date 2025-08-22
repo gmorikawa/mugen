@@ -20,10 +20,21 @@ return new class extends Migration
             $table->foreign('color_encoding_id')->references('id')->on('color_encodings')->onDelete('cascade');
             $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
         });
+
+        Schema::create('image_language', function (Blueprint $table) {
+            $table->foreignUuid('image_id');
+            $table->foreignUuid('language_id');
+
+            $table->primary(['image_id', 'language_id']);
+
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+        });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('image_language');
         Schema::dropIfExists('images');
     }
 };

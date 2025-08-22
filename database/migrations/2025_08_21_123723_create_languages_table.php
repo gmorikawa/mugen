@@ -14,21 +14,10 @@ return new class extends Migration
             $table->string('iso_code', 7);
             $table->timestamps();
         });
-
-        Schema::create('image_language', function (Blueprint $table) {
-            $table->foreignUuid('image_id');
-            $table->foreignUuid('language_id');
-
-            $table->primary(['image_id', 'language_id']);
-
-            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
-            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
-        });
     }
 
     public function down(): void
     {
         Schema::dropIfExists('languages');
-        Schema::dropIfExists('image_language');
     }
 };

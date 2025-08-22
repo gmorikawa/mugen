@@ -53,9 +53,9 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('games');
         Schema::dropIfExists('game_category');
         Schema::dropIfExists('game_developer');
         Schema::dropIfExists('game_publisher');
+        Schema::dropIfExists('games');
     }
 };
