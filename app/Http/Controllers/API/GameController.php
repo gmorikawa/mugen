@@ -30,6 +30,7 @@ class GameController extends Controller
         $entity = new Game([
             'title' => $data['title'],
             'platform_id' => $data['platform_id'],
+            'cover_id' => $data['cover_id'] ?? null,
             'release_date' => $data['release_date'] ?? null
         ]);
 
@@ -44,6 +45,7 @@ class GameController extends Controller
         $entity = new Game([
             'title' => $data['title'],
             'platform_id' => $data['platform_id'],
+            'cover_id' => $data['cover_id'] ?? null,
             'release_date' => $data['release_date'] ?? null
         ]);
 
@@ -63,6 +65,7 @@ class GameController extends Controller
             'title' => 'required|string',
             'release_date' => 'nullable|date',
             'platform_id' => 'required|exists:platforms,id',
+            'cover_id' => 'nullable|exists:files,id',
             'developers' => 'array',
             'developers.*' => 'exists:companies,id',
             'publishers' => 'array',

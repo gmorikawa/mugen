@@ -13,9 +13,11 @@ return new class extends Migration
             $table->string('title', 127);
             $table->foreignUuid('platform_id');
             $table->date('release_date')->nullable(true);
+            $table->foreignUuid('cover_id')->nullable(true);
             $table->timestamps();
 
             $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
+            $table->foreign('cover_id')->references('id')->on('files')->onDelete('cascade');
         });
 
         Schema::create('game_category', function (Blueprint $table) {

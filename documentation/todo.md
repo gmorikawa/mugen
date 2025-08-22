@@ -10,7 +10,6 @@
 [x] GameCategory
 [x] GameDeveloper
 [x] GamePublisher
-[ ] Cover
 [x] Language
 [x] Image
 [x] ImageLanguage
@@ -25,7 +24,6 @@
 [x] Platform
 [x] Game
 [x] Category
-[ ] Cover
 [x] Language
 [x] Image
 [x] ImageLanguage

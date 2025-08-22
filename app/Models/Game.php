@@ -21,6 +21,7 @@ class Game extends Model
     protected $fillable = [
         'title',
         'platform_id',
+        'cover_id',
         'release_date'
     ];
 
@@ -31,8 +32,14 @@ class Game extends Model
         ];
     }
 
-    public function platform(): BelongsTo {
+    public function platform(): BelongsTo
+    {
         return $this->belongsTo(Platform::class, 'platform_id');
+    }
+
+    public function cover(): BelongsTo
+    {
+        return $this->belongsTo(File::class, 'cover_id');
     }
 
     public function categories()

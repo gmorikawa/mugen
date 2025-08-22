@@ -11,8 +11,10 @@ return new class extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 127);
-            $table->string('flag', 127);
+            $table->foreignUuid('flag_id')->nullable(true);
             $table->timestamps();
+
+            $table->foreign('flag_id')->references('id')->on('files')->onDelete('cascade');
         });
     }
 

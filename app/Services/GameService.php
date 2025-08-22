@@ -34,6 +34,7 @@ class GameService
         if ($game) {
             $game->title = $entity->title;
             $game->platform_id = $entity->platform_id;
+            $game->cover_id = $entity->cover_id;
             $game->release_date = $entity->release_date;
 
             $game->save();

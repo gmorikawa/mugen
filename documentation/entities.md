@@ -30,7 +30,8 @@
 * _id_: __primary key, uuid__;
 * _title_: __varchar(127), not null__;
 * _platform_: __Platform, not null__;
-* _release\_date_: __date__
+* _release\_date_: __date__;
+* _cover\_id_: __File__;
 
 ### Category
 
@@ -53,16 +54,9 @@
 * _game_: __Game, not null__;
 * _company_: __Company, not null__;
 
-### Cover
-
-* _id_: __primary key, uuid__;
-* _game_: __Game, not null__;
-* _file_: __File, not null__;
-* _description_: __varchar(255)__;
-
 ### Image
 
-Image in this application represents the data of a game the way it was extracted from the original media. It is very common to call _ROMs_ when reffering to images of cartridges. But for all other cases, like playstation games which comes in CD, it might be an [incorrect term](https://www.reddit.com/r/Roms/comments/18jsvwa/why_are_roms_called_as_roms_i_mean_rom_stands_for/). A _image_ or _game dump_ are more generic terms that encompasses all cases.
+Image in this application represents the data of a game the way it was extracted from the original media. It is very common to call _ROMs_ when referring to images of cartridges. But for all other cases, like playstation games which comes in CD, it might be an [incorrect term](https://www.reddit.com/r/Roms/comments/18jsvwa/why_are_roms_called_as_roms_i_mean_rom_stands_for/). A _image_ or _game dump_ are more generic terms that encompasses all cases.
 
 * _id_: __primary key, uuid__;
 * _game_: __Game, not null__;
