@@ -8,7 +8,7 @@
         id="{{ $property }}"
         placeholder="{{ $placeholder }}"
         value="{{ $value }}"
-        type="email"
+        type="{{ $type }}"
         class="block border w-full rounded-md px-2 py-1"
     >
 

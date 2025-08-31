@@ -2,9 +2,12 @@
 
 namespace App\View\Components\Input;
 
-class EmailInput extends FormInput
+use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
+
+abstract class FormInput extends Component
 {
-    public string $type = 'email';
+    public string $type = 'text';
 
     public function __construct(
         public string $property,
@@ -13,4 +16,9 @@ class EmailInput extends FormInput
         public string $label = '',
         public array $errors = []
     ) {}
+
+    public function render(): View
+    {
+        return view('components.input.form-input');
+    }
 }
