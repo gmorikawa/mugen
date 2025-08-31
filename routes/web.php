@@ -5,17 +5,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\AuthenticationController;
 use App\Http\Controllers\Web\HomeController;
-use Illuminate\Http\Request;
 
 Route::get('/', [HomeController::class, 'welcome']);
-Route::get('/dashboard', [HomeController::class, 'dashboard']);
 
 Route::get('/login', [AuthenticationController::class, 'login']);
 Route::post('/login', [AuthenticationController::class, 'authenticate']);
 Route::post('/logout', [AuthenticationController::class, 'logout']);
 
-Route::get('/users', [UserController::class, 'list']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'dashboard']);
+    // Route::redirect('settings', 'settings/profile');
 
-Route::get('/dump', function(Request $request) {
-    return var_dump($request);
+    // Route::get('settings/profile', Profile::class)->name('settings.profile');
+    // Route::get('settings/password', Password::class)->name('settings.password');
+    // Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+
+    Route::get('/users', [UserController::class, 'list']);
 });
