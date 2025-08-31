@@ -8,6 +8,7 @@
 * _email_: __varchar(127), unique, not null__;
 * _username_: __varchar(127), unique, not null__;
 * _password_: __varchar(255), not null__;
+* _role_: __UserRole, not null__;
 
 ### Company
 
@@ -99,6 +100,12 @@ Observations: _size_ is measured in bytes.
 * _state_: __FileState, not null__;
 
 ## Enums
+
+### UserRole
+
+* _Admin_;
+* _Manager_;
+* _Member_;
 
 ### PlatformType
 

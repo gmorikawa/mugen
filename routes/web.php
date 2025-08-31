@@ -1,22 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+use App\Http\Controllers\Web\UserController;
+use App\Http\Controllers\Web\AuthenticationController;
+use App\Http\Controllers\Web\HomeController;
+use Illuminate\Http\Request;
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('/', [HomeController::class, 'welcome']);
+Route::get('/dashboard', [HomeController::class, 'dashboard']);
 
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
+Route::get('/login', [AuthenticationController::class, 'login']);
+Route::post('/login', [AuthenticationController::class, 'authenticate']);
+Route::post('/logout', [AuthenticationController::class, 'logout']);
 
-    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
-    Volt::route('settings/password', 'settings.password')->name('settings.password');
-    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+Route::get('/users', [UserController::class, 'list']);
+
+Route::get('/dump', function(Request $request) {
+    return var_dump($request);
 });
-
-require __DIR__.'/auth.php';
