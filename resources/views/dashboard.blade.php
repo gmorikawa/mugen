@@ -1,5 +1,3 @@
 <x-layout.app :title="__('Dashboard')">
-    dashboard
-
-    {{ var_dump($user) }}
+    dashboards
 </x-layout.app>

@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         $service = new UserService();
 
-        return view('user.list-users', [
+        return view('user.list', [
             'users' => $service->getAll()
         ]);
     }
