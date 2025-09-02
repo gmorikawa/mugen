@@ -1,5 +1,5 @@
-<section class="mb-2">
-    <p class="uppercase">
+<section class="mb-4">
+    <p class="uppercase border-b pb-1">
         {{ $title }}
     </p>
     <ul>
