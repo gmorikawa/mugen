@@ -11,9 +11,9 @@
     <header class="basis-auto flex flex-row justify-between p-4">
         <div>LOGO</div>
         <div>
-            <x-button.action-button action="/logout">
+            <x-button.action action="/logout">
                 Logout
-            </x-button.action-button>
+            </x-button.action>
         </div>
     </header>
 

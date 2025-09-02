@@ -21,4 +21,6 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 
     Route::get('/users', [UserController::class, 'list']);
+    Route::get('/users/create', [UserController::class, 'createForm']);
+    Route::post('/users/create', [UserController::class, 'create']);
 });
