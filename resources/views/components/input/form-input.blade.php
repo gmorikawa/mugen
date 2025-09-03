@@ -1,7 +1,11 @@
 <div>
-    @isset ($label)
-    <label for="{{ $property }}" class="block mb-1">{{ $label }}</label>
-    @endisset
+    @if ($label)
+    <label
+        for="{{ $property }}"
+        class="{{ $errors ? 'block mb-1 text-red-500' : 'block mb-1' }}">
+        {{ $label }}
+    </label>
+    @endif
 
     <input
         name="{{ $property }}"
@@ -9,14 +13,13 @@
         placeholder="{{ $placeholder }}"
         value="{{ $value }}"
         type="{{ $type }}"
-        class="block border w-full rounded-md px-2 py-1"
-    >
+        class="{{ $errors ? 'block border w-full rounded-md px-2 py-1 border-red-500' : 'block border w-full rounded-md px-2 py-1' }}">
 
-    @isset ($errors)
+    @if ($errors)
     <ul>
         @foreach ($errors as $error)
-            <li>{{ $error }}</li>
+        <li class="text-red-500">{{ $error }}</li>
         @endforeach
     </ul>
-    @endisset
+    @endif
 </div>

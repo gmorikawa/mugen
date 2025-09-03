@@ -2,16 +2,31 @@
     <form method="post" action="/users/create">
         @csrf
 
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-
         <x-container.stack>
-            <x-input.text-input property="username" label="Username" />
-            <x-input.email-input property="email" label="Email" />
-            <x-input.password-input property="password" label="Password" />
+            <x-input.form-radio
+                property="role"
+                label="Role"
+                value="{{ old('role') }}"
+                :errors="$errors->get('role')"
+                :options="$roles"
+            />
+
+            <x-input.text-input
+                property="username"
+                label="Username"
+                value="{{ old('username') }}"
+                :errors="$errors->get('username')" />
+
+            <x-input.email-input
+                property="email"
+                label="Email"
+                value="{{ old('email') }}"
+                :errors="$errors->get('email')" />
+
+            <x-input.password-input
+                property="password"
+                label="Password"
+                :errors="$errors->get('password')" />
 
             <x-button.submit>
                 Save

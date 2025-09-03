@@ -28,8 +28,15 @@ class UserController extends Controller
 
     public function createForm(Request $request): View
     {
+        $roles = [
+            [ 'key' => UserRole::ADMIN->value, 'label' => UserRole::ADMIN->label() ],
+            [ 'key' => UserRole::MANAGER->value, 'label' => UserRole::MANAGER->label() ],
+            [ 'key' => UserRole::MEMBER->value, 'label' => UserRole::MEMBER->label() ],
+        ];
+
         return view('user.form-create', [
             'title' => 'Create User',
+            'roles' => $roles
         ]);
     }
 
@@ -39,6 +46,7 @@ class UserController extends Controller
             'email' => ['required', 'email'],
             'username' => ['required'],
             'password' => ['required'],
+            'role' => ['required']
         ]);
 
         try {
@@ -47,7 +55,7 @@ class UserController extends Controller
             $user->email = $data['email'];
             $user->username = $data['username'];
             $user->password = $data['password'] ?? "jesus";
-            $user->role = UserRole::ADMIN->value;
+            $user->role = $data['role'] ?? UserRole::MEMBER->value;
 
             $service->create($user);
 
@@ -57,12 +65,14 @@ class UserController extends Controller
             return back()
                 ->withErrors([
                     'username' => $exception->getErrorMessage(),
-                ]);
+                ])
+                ->withInput();
         } catch (DuplicatedEmailException $exception) {
             return back()
                 ->withErrors([
                     'email' => $exception->getErrorMessage(),
-                ]);
+                ])
+                ->withInput();
         }
     }
 }
