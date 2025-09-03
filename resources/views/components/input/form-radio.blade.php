@@ -14,6 +14,7 @@
                 id="{{ $option['key'] }}"
                 value="{{ $option['key'] }}"
                 type="radio"
+                @if ($option['key'] === $value) checked @endif
                 class="{{ $errors ? 'border w-full rounded-md px-2 py-1 border-red-500' : 'border rounded-md px-2 py-1' }}">
             <label for="{{ $option['key'] }}">
                 {{ $option['label'] }}
