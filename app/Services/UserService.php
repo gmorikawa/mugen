@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Enums\UserRole;
 use App\Exceptions\User\DuplicatedEmailException;
 use App\Exceptions\User\DuplicatedUsernameException;
+use App\Exceptions\User\ForbiddenAdminRemovalException;
 use App\Models\User;
 
 class UserService
@@ -67,6 +69,12 @@ class UserService
 
     function remove(String $id)
     {
+        $user = $this->getById($id);
+
+        if ($user->role === UserRole::ADMIN->value) {
+            throw new ForbiddenAdminRemovalException();
+        }
+
         return User::destroy($id);
     }
 

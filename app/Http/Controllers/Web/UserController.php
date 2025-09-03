@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Exceptions\User\DuplicatedEmailException;
 use App\Exceptions\User\DuplicatedUsernameException;
+use App\Exceptions\User\ForbiddenAdminRemovalException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\UserService;
@@ -130,7 +131,8 @@ class UserController extends Controller
         }
     }
 
-    public function removeConfirm(Request $request, String $id) {
+    public function removeConfirm(Request $request, String $id): View
+    {
         $service = new UserService();
 
         $user = $service->getById($id);
@@ -141,7 +143,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function remove(Request $request, String $id) {
+    public function remove(Request $request, String $id): RedirectResponse
+    {
         $service = new UserService();
 
         try {
@@ -149,8 +152,11 @@ class UserController extends Controller
 
             return redirect()
                 ->action([UserController::class, 'list']);
-        } catch(Exception $ex) {
-            return back();
+        } catch (ForbiddenAdminRemovalException $exception) {
+            return back()
+                ->withErrors([
+                    'user' => $exception->getErrorMessage(),
+                ]);
         }
     }
 }
