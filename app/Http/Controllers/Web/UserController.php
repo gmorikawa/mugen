@@ -29,9 +29,9 @@ class UserController extends Controller
     public function createForm(Request $request): View
     {
         $roles = [
-            [ 'key' => UserRole::ADMIN->value, 'label' => UserRole::ADMIN->label() ],
-            [ 'key' => UserRole::MANAGER->value, 'label' => UserRole::MANAGER->label() ],
-            [ 'key' => UserRole::MEMBER->value, 'label' => UserRole::MEMBER->label() ],
+            ['key' => UserRole::ADMIN->value, 'label' => UserRole::ADMIN->label()],
+            ['key' => UserRole::MANAGER->value, 'label' => UserRole::MANAGER->label()],
+            ['key' => UserRole::MEMBER->value, 'label' => UserRole::MEMBER->label()],
         ];
 
         return view('user.form-create', [
@@ -73,6 +73,84 @@ class UserController extends Controller
                     'email' => $exception->getErrorMessage(),
                 ])
                 ->withInput();
+        }
+    }
+
+    public function updateForm(Request $request, String $id): View
+    {
+        $service = new UserService();
+
+        $user = $service->getById($id);
+
+        $roles = [
+            ['key' => UserRole::ADMIN->value, 'label' => UserRole::ADMIN->label()],
+            ['key' => UserRole::MANAGER->value, 'label' => UserRole::MANAGER->label()],
+            ['key' => UserRole::MEMBER->value, 'label' => UserRole::MEMBER->label()],
+        ];
+
+        return view('user.form-update', [
+            'title' => 'Update User',
+            'user' => $user,
+            'roles' => $roles
+        ]);
+    }
+
+    public function update(Request $request, String $id): RedirectResponse
+    {
+        $data = $request->validate([
+            'email' => ['required', 'email'],
+            'username' => ['required'],
+            'role' => ['required']
+        ]);
+
+        try {
+            $service = new UserService();
+            $user = new User();
+
+            $user->email = $data['email'];
+            $user->username = $data['username'];
+            $user->role = $data['role'] ?? UserRole::MEMBER->value;
+
+            $service->update($id, $user);
+
+            return redirect()
+                ->action([UserController::class, 'list']);
+        } catch (DuplicatedUsernameException $exception) {
+            return back()
+                ->withErrors([
+                    'username' => $exception->getErrorMessage(),
+                ])
+                ->withInput();
+        } catch (DuplicatedEmailException $exception) {
+            return back()
+                ->withErrors([
+                    'email' => $exception->getErrorMessage(),
+                ])
+                ->withInput();
+        }
+    }
+
+    public function removeConfirm(Request $request, String $id) {
+        $service = new UserService();
+
+        $user = $service->getById($id);
+
+        return view('user.confirm-remove', [
+            'title' => 'Remove User',
+            'user' => $user
+        ]);
+    }
+
+    public function remove(Request $request, String $id) {
+        $service = new UserService();
+
+        try {
+            $service->remove($id);
+
+            return redirect()
+                ->action([UserController::class, 'list']);
+        } catch(Exception $ex) {
+            return back();
         }
     }
 }

@@ -11,6 +11,7 @@
                     <th class="border border-gray-300 p-2 text-left">Username</th>
                     <th class="border border-gray-300 p-2 text-left">Email</th>
                     <th class="border border-gray-300 p-2 text-left">Role</th>
+                    <th class="border border-gray-300 p-2 text-left">Actions</th>
                 </tr>
             </thead>
 
@@ -20,6 +21,12 @@
                     <td class="border border-gray-300 p-2">{{ $user->username }}</td>
                     <td class="border border-gray-300 p-2">{{ $user->email }}</td>
                     <td class="border border-gray-300 p-2">{{ $user->role }}</td>
+                    <td class="border border-gray-300 p-2">
+                        <div class="flex flex-row gap-2">
+                            <x-button.link href="/users/{{ $user->id }}/update">Update</x-button.outlined>
+                            <x-button.link href="/users/{{ $user->id }}/remove">Remove</x-button.action>
+                        </div>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

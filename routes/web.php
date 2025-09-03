@@ -23,4 +23,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users', [UserController::class, 'list']);
     Route::get('/users/create', [UserController::class, 'createForm']);
     Route::post('/users/create', [UserController::class, 'create']);
+    Route::get('/users/{id}/update', [UserController::class, 'updateForm']);
+    Route::post('/users/{id}/update', [UserController::class, 'update']);
+    Route::get('/users/{id}/remove', [UserController::class, 'removeConfirm']);
+    Route::post('/users/{id}/remove', [UserController::class, 'remove']);
 });

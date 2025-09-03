@@ -1,11 +1,27 @@
 <x-layout.app>
-    <form method="post" action="/users/create">
+    <form method="post" action="/users/{{ $user->id }}/update">
         @csrf
 
         <x-container.stack>
-            <x-input.text-input property="username" label="Username" />
-            <x-input.email-input property="email" label="Email" />
-            <x-input.password-input property="password" label="Password" />
+            <x-input.form-radio
+                property="role"
+                label="Role"
+                value="{{ $user->role }}"
+                :errors="$errors->get('role')"
+                :options="$roles"
+            />
+
+            <x-input.text-input
+                property="username"
+                label="Username"
+                value="{{ $user->username }}"
+                :errors="$errors->get('username')" />
+
+            <x-input.email-input
+                property="email"
+                label="Email"
+                value="{{ $user->email }}"
+                :errors="$errors->get('email')" />
 
             <x-button.submit>
                 Save
