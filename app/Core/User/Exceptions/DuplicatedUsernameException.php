@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Exceptions\User;
+namespace App\Core\User\Exceptions;
 
-use App\Exceptions\BusinessException;
+use App\Shared\Exceptions\BusinessException;
 
 class DuplicatedUsernameException extends BusinessException {
-    protected $error_code = "ERR_USER_001";
-
     protected $error_message = "This username has already been registered.";
 }

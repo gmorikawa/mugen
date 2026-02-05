@@ -2,9 +2,9 @@
 
 namespace App\Core\User;
 
-use App\Exceptions\User\DuplicatedEmailException;
-use App\Exceptions\User\DuplicatedUsernameException;
-use App\Exceptions\User\ForbiddenAdminRemovalException;
+use App\Core\User\Exceptions\DuplicatedEmailException;
+use App\Core\User\Exceptions\DuplicatedUsernameException;
+use App\Core\User\Exceptions\ForbiddenAdminRemovalException;
 
 class UserService
 {
@@ -45,38 +45,40 @@ class UserService
         return $this->repository->create($entity);
     }
 
-    // function update(String $id, User $entity)
-    // {
-    //     if (!$this->isUsernameUnique($entity->username, $id)) {
-    //         throw new DuplicatedUsernameException();
-    //     }
+    function update(String $id, User $entity): User | null
+    {
+        if (!$this->isUsernameUnique($entity->getUsername(), $id)) {
+            throw new DuplicatedUsernameException();
+        }
 
-    //     if (!$this->isEmailUnique($entity->email, $id)) {
-    //         throw new DuplicatedEmailException();
-    //     }
+        if (!$this->isEmailUnique($entity->getEmail(), $id)) {
+            throw new DuplicatedEmailException();
+        }
 
-    //     $user = $this->getById($id);
+        $user = $this->getById($id);
 
-    //     if ($user) {
-    //         $user->username = $entity->username;
-    //         $user->email = $entity->email;
+        if ($user) {
+            return $this->repository->update($id, new User([
+                'email' => $entity->getEmail() ?? $user->getEmail(),
+                'username' => $entity->getUsername() ?? $user->getUsername(),
+                'password' => $user->getPassword(),
+                'role' => $entity->getRole()->value ?? $user->getRole()->value,
+            ]));
+        }
 
-    //         $user->save();
-    //     }
+        return $user;
+    }
 
-    //     return $user;
-    // }
+    function remove(String $id): bool
+    {
+        $user = $this->getById($id);
 
-    // function remove(String $id)
-    // {
-    //     $user = $this->getById($id);
+        if ($user->getRole() === UserRole::ADMIN) {
+            throw new ForbiddenAdminRemovalException();
+        }
 
-    //     if ($user->role === UserRole::ADMIN->value) {
-    //         throw new ForbiddenAdminRemovalException();
-    //     }
-
-    //     return User::destroy($id);
-    // }
+        return $this->repository->remove($id);
+    }
 
     function isUsernameUnique(String $username, String $ignoreId = '')
     {

@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Exceptions\User;
+namespace App\Core\User\Exceptions;
 
-use App\Exceptions\BusinessException;
+use App\Shared\Exceptions\BusinessException;
 
 class DuplicatedEmailException extends BusinessException {
-    protected $error_code = "ERR_USER_002";
-
     protected $error_message = "This email has already been registered.";
 }

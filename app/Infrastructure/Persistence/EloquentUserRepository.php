@@ -82,12 +82,36 @@ class EloquentUserRepository implements UserRepository
 
     public function update(String $id, User $entity): User
     {
-        throw new Exception('Not implemented');
+        $model = UserModel::find($id);
+
+        if (!$model) {
+            throw new Exception('User not found');
+        }
+
+        $model->update([
+            'email' => $entity->getEmail(),
+            'username' => $entity->getUsername(),
+            'password' => $entity->getPassword(),
+            'role' => $entity->getRole()->value,
+        ]);
+
+        return new User([
+            'id' => $model->id,
+            'email' => $model->email,
+            'username' => $model->username,
+            'hashed_password' => $model->password,
+            'role' => UserRole::from($model->role),
+        ]);
     }
 
     public function remove(String $id): bool
     {
-        throw new Exception('Not implemented');
+        $model = UserModel::find($id);
+        if (!$model) {
+            return false;
+        }
+
+        return $model->delete();
     }
 
     public function generateToken(String $id): string

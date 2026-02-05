@@ -2,7 +2,7 @@
 
 namespace App\Core\Auth;
 
-use App\Core\Auth\Exception\InvalidCredentialsException;
+use App\Core\Auth\Exceptions\InvalidCredentialsException;
 use App\Core\User\LoggedUser;
 use App\Core\User\User;
 use App\Core\User\UserRole;
