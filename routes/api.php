@@ -28,7 +28,7 @@ Route::group(
         Route::get('/', [UserController::class, 'getAll']);
         Route::get('/{id}', [UserController::class, 'getById']);
         Route::post('/', [UserController::class, 'create']);
-        Route::patch('/{id}', [UserController::class, 'update']);
+        Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'remove']);
     }
 );

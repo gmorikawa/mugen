@@ -19,7 +19,7 @@ class User
         $this->email = $data['email'];
         $this->password = isset($data['plain_password'])
             ? password_hash($data['plain_password'], PASSWORD_BCRYPT)
-            : $data['hashed_password'];
+            : ($data['hashed_password'] ?? '');
         $this->role = $data['role'];
         $this->profile = $data['profile'] ?? null;
     }

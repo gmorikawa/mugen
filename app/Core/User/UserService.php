@@ -62,7 +62,8 @@ class UserService
                 'email' => $entity->getEmail() ?? $user->getEmail(),
                 'username' => $entity->getUsername() ?? $user->getUsername(),
                 'password' => $user->getPassword(),
-                'role' => $entity->getRole()->value ?? $user->getRole()->value,
+                'role' => $entity->getRole() ?? $user->getRole(),
+                'profile' => $entity->getProfile() ?? $user->getProfile(),
             ]));
         }
 
