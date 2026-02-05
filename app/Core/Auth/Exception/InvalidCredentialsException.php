@@ -2,9 +2,9 @@
 
 namespace App\Core\Auth\Exception;
 
-use Exception;
+use App\Shared\Exceptions\BusinessException;
 
-class InvalidCredentialsException extends Exception
+class InvalidCredentialsException extends BusinessException
 {
     function __construct()
     {

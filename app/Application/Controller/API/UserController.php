@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Application\Controller\API;
 
 use App\Core\User\User;
 use App\Core\User\UserService;
@@ -15,7 +15,16 @@ class UserController extends Controller
 
     public function getAll()
     {
-        return $this->service->getAll();
+        $users = $this->service->getAll();
+
+        return array_map(function (User $user) {
+            return [
+                'id' => $user->getId(),
+                'email' => $user->getEmail(),
+                'username' => $user->getUsername(),
+                'role' => $user->getRole()->value,
+            ];
+        }, $users);
     }
 
     public function getById(String $id)

@@ -12,7 +12,17 @@ class EloquentUserRepository implements UserRepository
 {
     public function findAll(): array
     {
-        throw new Exception('Not implemented');
+        $found = UserModel::all();
+
+        return $found->map(function ($item) {
+            return new User([
+                'id' => $item->id,
+                'email' => $item->email,
+                'username' => $item->username,
+                'hashed_password' => $item->password,
+                'role' => UserRole::from($item->role),
+            ]);
+        })->toArray();
     }
 
     public function findById(String $id): User | null

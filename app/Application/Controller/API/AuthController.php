@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Application\Controller\API;
 
 use App\Core\Auth\AdminSignup;
 use App\Core\Auth\AuthService;

@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-use \App\Http\Controllers\API\AuthController;
-use \App\Http\Controllers\API\UserController;
+use App\Application\Controller\API\AuthController;
+use App\Application\Controller\API\UserController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\API\FileController;
@@ -19,13 +19,19 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
-Route::group(['prefix' => 'users'], function () {
-    Route::get('/', [UserController::class, 'getAll']);
-    Route::get('/{id}', [UserController::class, 'getById']);
-    Route::post('/', [UserController::class, 'create']);
-    Route::patch('/{id}', [UserController::class, 'update']);
-    Route::delete('/{id}', [UserController::class, 'remove']);
-});
+Route::group(
+    [
+        'middleware' => ['auth:sanctum'],
+        'prefix' => 'users'
+    ],
+    function () {
+        Route::get('/', [UserController::class, 'getAll']);
+        Route::get('/{id}', [UserController::class, 'getById']);
+        Route::post('/', [UserController::class, 'create']);
+        Route::patch('/{id}', [UserController::class, 'update']);
+        Route::delete('/{id}', [UserController::class, 'remove']);
+    }
+);
 
 Route::group(['prefix' => 'countries'], function () {
     Route::get('/', [CountryController::class, 'getAll']);
