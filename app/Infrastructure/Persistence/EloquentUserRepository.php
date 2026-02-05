@@ -23,6 +23,11 @@ class EloquentUserRepository implements UserRepository
                 'username' => $item->username,
                 'hashed_password' => $item->password,
                 'role' => UserRole::from($item->role),
+                'profile' => new UserProfile([
+                    'fullname' => $item->profile?->fullname,
+                    'biography' => $item->profile?->biography,
+                    'avatar' => $item->profile?->avatar_id
+                ])
             ]);
         })->toArray();
     }
@@ -83,15 +88,13 @@ class EloquentUserRepository implements UserRepository
     public function create(User $entity): User
     {
         $model = new UserModel([
-            'email' => $entity->getEmail(),
-            'username' => $entity->getUsername(),
-            'password' => $entity->getPassword(),
-            'role' => $entity->getRole()->value,
+            'email' => $entity->email,
+            'username' => $entity->username,
+            'password' => $entity->password,
+            'role' => $entity->role->value,
         ]);
 
         $model->save();
-
-        error_log('Creating profile for user ID: ' . $model->id);
 
         $profileModel = new UserProfileModel([
             'user_id' => $model->id,
@@ -118,10 +121,10 @@ class EloquentUserRepository implements UserRepository
         }
 
         $model->update([
-            'email' => $entity->getEmail(),
-            'username' => $entity->getUsername(),
-            'password' => $entity->getPassword(),
-            'role' => $entity->getRole()->value,
+            'email' => $entity->email,
+            'username' => $entity->username,
+            'password' => $entity->password,
+            'role' => $entity->role->value,
         ]);
 
         if (!$profileModel) {
@@ -132,9 +135,9 @@ class EloquentUserRepository implements UserRepository
         }
 
         $profileModel->update([
-            'fullname' => $entity->getProfile()?->getFullname(),
-            'biography' => $entity->getProfile()?->getBiography(),
-            'avatar' => $entity->getProfile()?->getAvatar(),
+            'fullname' => $entity->profile?->fullname,
+            'biography' => $entity->profile?->biography,
+            'avatar' => $entity->profile?->avatar,
         ]);
 
         return new User([

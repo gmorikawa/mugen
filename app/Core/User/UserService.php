@@ -5,98 +5,120 @@ namespace App\Core\User;
 use App\Core\User\Exceptions\DuplicatedEmailException;
 use App\Core\User\Exceptions\DuplicatedUsernameException;
 use App\Core\User\Exceptions\ForbiddenAdminRemovalException;
+use App\Core\User\Exceptions\UserNotFoundException;
 
 class UserService
 {
     public function __construct(
         private UserRepository $repository
-    ) { }
+    ) {}
 
     function getAll(): array
     {
         return $this->repository->findAll();
     }
 
-    function getById(String $id)
+    function getById(String $id): User
     {
-        return $this->repository->findById($id);
+        $user = $this->repository->findById($id);
+
+        if ($user === null) {
+            throw new UserNotFoundException();
+        }
+
+        return $user;
     }
 
-    function getByUsername(String $username)
+    function getByUsername(String $username): User
     {
-        return $this->repository->findByUsername($username);
+        $user = $this->repository->findByUsername($username);
+
+        if ($user === null) {
+            throw new UserNotFoundException();
+        }
+
+        return $user;
     }
 
-    function getByEmail(String $email)
+    function getByEmail(String $email): User
     {
-        return $this->repository->findByEmail($email);
+        $user = $this->repository->findByEmail($email);
+
+        if ($user === null) {
+            throw new UserNotFoundException();
+        }
+
+        return $user;
     }
 
-    function create(User $entity)
+    function create(User $entity): User
     {
-        if (!$this->isUsernameUnique($entity->getUsername())) {
+        if (!$this->isUsernameUnique($entity->username)) {
             throw new DuplicatedUsernameException();
         }
 
-        if (!$this->isEmailUnique($entity->getEmail())) {
+        if (!$this->isEmailUnique($entity->email)) {
             throw new DuplicatedEmailException();
         }
 
         return $this->repository->create($entity);
     }
 
-    function update(String $id, User $entity): User | null
+    function update(String $id, User $entity): User
     {
-        if (!$this->isUsernameUnique($entity->getUsername(), $id)) {
+        if (!$this->isUsernameUnique($entity->username, $id)) {
             throw new DuplicatedUsernameException();
         }
 
-        if (!$this->isEmailUnique($entity->getEmail(), $id)) {
+        if (!$this->isEmailUnique($entity->email, $id)) {
             throw new DuplicatedEmailException();
         }
 
-        $user = $this->getById($id);
+        $user = $this->repository->findById($id);
 
-        if ($user) {
-            return $this->repository->update($id, new User([
-                'email' => $entity->getEmail() ?? $user->getEmail(),
-                'username' => $entity->getUsername() ?? $user->getUsername(),
-                'password' => $user->getPassword(),
-                'role' => $entity->getRole() ?? $user->getRole(),
-                'profile' => $entity->getProfile() ?? $user->getProfile(),
-            ]));
+        if ($user === null) {
+            throw new UserNotFoundException();
         }
 
-        return $user;
+        $modifiedUser = new User([
+            'id' => $user->id,
+            'username' => $entity->username,
+            'email' => $entity->email,
+            'hashed_password' => $user->password,
+            'role' => $entity->role,
+            'profile' => $entity->profile,
+        ]);
+
+        return $this->repository->update($id, $modifiedUser);
     }
 
     function remove(String $id): bool
     {
         $user = $this->getById($id);
 
-        if ($user->getRole() === UserRole::ADMIN) {
+        if ($user->role === UserRole::ADMIN) {
             throw new ForbiddenAdminRemovalException();
         }
 
         return $this->repository->remove($id);
     }
 
-    function isUsernameUnique(String $username, String $ignoreId = '')
+    function isUsernameUnique(String $username, String $ignoreId = ''): bool
     {
-        $user = $this->getByUsername($username);
+        $user = $this->repository->findByUsername($username);
 
-        return is_null($user) || $user->getId() == $ignoreId;
+        return is_null($user) || $user->id == $ignoreId;
     }
 
-    function isEmailUnique(String $email, String $ignoreId = '')
+    function isEmailUnique(String $email, String $ignoreId = ''): bool
     {
-        $user = $this->getByEmail($email);
+        $user = $this->repository->findByEmail($email);
 
-        return is_null($user) || $user->getId() == $ignoreId;
+        return is_null($user) || $user->id == $ignoreId;
     }
 
-    function generateToken(User $user)
+    function generateToken(User $user): string
     {
-        return $this->repository->generateToken($user->getId());
+        return $this->repository->generateToken($user->id);
     }
 }

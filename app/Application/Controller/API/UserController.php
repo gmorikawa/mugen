@@ -20,17 +20,7 @@ class UserController extends Controller
         $users = $this->service->getAll();
 
         return array_map(function (User $user) {
-            return [
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'username' => $user->getUsername(),
-                'role' => $user->getRole()->value,
-                'profile' => [
-                    'fullname' => $user->getProfile()?->getFullname(),
-                    'biography' => $user->getProfile()?->getBiography(),
-                    'avatar' => $user->getProfile()?->getAvatar(),
-                ],
-            ];
+            return $user->toObject();
         }, $users);
     }
 
@@ -38,21 +28,7 @@ class UserController extends Controller
     {
         $user = $this->service->getById($id);
 
-        if ($user === null) {
-            return null;
-        }
-
-        return [
-            'id' => $user->getId(),
-            'email' => $user->getEmail(),
-            'username' => $user->getUsername(),
-            'role' => $user->getRole()->value,
-            'profile' => [
-                'fullname' => $user->getProfile()?->getFullname(),
-                'biography' => $user->getProfile()?->getBiography(),
-                'avatar' => $user->getProfile()?->getAvatar(),
-            ],
-        ];
+        return $user->toObject();
     }
 
     public function create(Request $request)
@@ -82,17 +58,7 @@ class UserController extends Controller
 
         $updated = $this->service->update($id, $entity);
 
-        return [
-            'id' => $updated->getId(),
-            'email' => $updated->getEmail(),
-            'username' => $updated->getUsername(),
-            'role' => $updated->getRole()->value,
-            'profile' => [
-                'fullname' => $updated->getProfile()?->getFullname(),
-                'biography' => $updated->getProfile()?->getBiography(),
-                'avatar' => $updated->getProfile()?->getAvatar(),
-            ],
-        ];
+        return $updated->toObject();
     }
 
     public function remove(String $id)

@@ -2,11 +2,13 @@
 
 namespace App\Core\User;
 
-class UserProfile
+use App\Shared\Entity\Entity;
+
+class UserProfile extends Entity
 {
-    private ?string $fullname = null;
-    private ?string $biography = null;
-    private ?string $avatar = null;
+    public readonly ?string $fullname;
+    public readonly ?string $biography;
+    public readonly ?string $avatar;
 
     public function __construct(array $data)
     {
@@ -15,18 +17,12 @@ class UserProfile
         $this->avatar = $data['avatar'] ?? null;
     }
 
-    public function getFullname(): ?string
+    function toObject(): array
     {
-        return $this->fullname;
-    }
-
-    public function getBiography(): ?string
-    {
-        return $this->biography;
-    }
-
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
+        return [
+            'fullname' => $this->fullname,
+            'biography' => $this->biography,
+            'avatar' => $this->avatar,
+        ];
     }
 }

@@ -2,15 +2,17 @@
 
 namespace App\Core\User;
 
-class User
-{
-    private ?string $id;
-    private string $username;
-    private string $email;
-    private string $password;
-    private UserRole $role;
+use App\Shared\Entity\Entity;
 
-    private ?UserProfile $profile = null;
+class User extends Entity
+{
+    public readonly ?string $id;
+    public readonly string $username;
+    public readonly string $email;
+    public readonly string $password;
+    public readonly UserRole $role;
+
+    public readonly ?UserProfile $profile;
 
     public function __construct(array $data)
     {
@@ -24,38 +26,21 @@ class User
         $this->profile = $data['profile'] ?? null;
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function getRole(): UserRole
-    {
-        return $this->role;
-    }
-
-    public function getProfile(): ?UserProfile
-    {
-        return $this->profile;
-    }
-
     public function verifyPassword(string $plainPassword): bool
     {
         return password_verify($plainPassword, $this->password);
+    }
+
+    function toObject(): array
+    {
+        $object =  [
+            'id' => $this->id,
+            'username' => $this->username,
+            'email' => $this->email,
+            'role' => $this->role->value,
+            'profile' => $this->profile?->toObject(),
+        ];
+
+        return $object;
     }
 }
