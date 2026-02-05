@@ -10,6 +10,24 @@
 * _password_: __varchar(255), not null__;
 * _role_: __UserRole, not null__;
 
+### User Profile
+
+* _user\_id_: __User__;
+* _fullname_: __varchar(127), not null__;
+* _biography_: __varchar(255)__;
+* _avatar_: __File__;
+
+### File
+
+Observations: _size_ is measured in bytes.
+
+* _id_: __primary key, uuid__;
+* _name_: __varchar(127), not null__;
+* _concrete\_name_: __varchar(127), not null__;
+* _path_: __varchar(255), not null__;
+* _size_: __integer, not null__;
+* _state_: __FileState, not null__;
+
 ### Company
 
 * _id_: __primary key, uuid__;
@@ -88,34 +106,23 @@ Image in this application represents the data of a game the way it was extracted
 * _name_: __varchar(127), not null__;
 * _flag_: __File__;
 
-### File
-
-Observations: _size_ is measured in bytes.
-
-* _id_: __primary key, uuid__;
-* _name_: __varchar(127), not null__;
-* _concrete\_name_: __varchar(127), not null__;
-* _path_: __varchar(255), not null__;
-* _size_: __integer, not null__;
-* _state_: __FileState, not null__;
-
 ## Enums
 
 ### UserRole
 
-* _Admin_;
-* _Manager_;
-* _Member_;
+* _ADMIN_;
+* _MANAGER_;
+* _MEMBER_;
 
 ### PlatformType
 
-* _Home_;
-* _Portable_;
-* _Hybrid_;
+* _HOME_;
+* _PORTABLE_;
+* _HYBRID_;
 
 ### FileState
 
-* _Pending_;
-* _Uploading_;
-* _Available_;
-* _Corrupted_;
+* _PENDING_;
+* _UPLOADING_;
+* _AVAILABLE_;
+* _CORRUPTED_;

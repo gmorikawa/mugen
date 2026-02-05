@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\ColorEncodingController;
 use Illuminate\Support\Facades\Route;
 
+use \App\Http\Controllers\API\AuthController;
+use \App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\API\FileController;
@@ -11,6 +11,21 @@ use App\Http\Controllers\API\GameController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\LanguageController;
 use App\Http\Controllers\API\PlatformController;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ColorEncodingController;
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('/system-setup', [AuthController::class, 'systemSetup']);
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
+Route::group(['prefix' => 'users'], function () {
+    Route::get('/', [UserController::class, 'getAll']);
+    Route::get('/{id}', [UserController::class, 'getById']);
+    Route::post('/', [UserController::class, 'create']);
+    Route::patch('/{id}', [UserController::class, 'update']);
+    Route::delete('/{id}', [UserController::class, 'remove']);
+});
 
 Route::group(['prefix' => 'countries'], function () {
     Route::get('/', [CountryController::class, 'getAll']);

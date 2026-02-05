@@ -13,7 +13,6 @@ use App\Exceptions\User\ForbiddenAdminRemovalException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\UserService;
-use Exception;
 
 class UserController extends Controller
 {
