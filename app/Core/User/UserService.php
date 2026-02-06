@@ -2,15 +2,21 @@
 
 namespace App\Core\User;
 
+use App\Core\Auth\Interfaces\TokenGenerator;
+use App\Core\Notification\Email\Email;
+use App\Core\Notification\Email\Interfaces\EmailSender;
 use App\Core\User\Exceptions\DuplicatedEmailException;
 use App\Core\User\Exceptions\DuplicatedUsernameException;
 use App\Core\User\Exceptions\ForbiddenAdminRemovalException;
 use App\Core\User\Exceptions\UserNotFoundException;
+use DateTime;
 
 class UserService
 {
     public function __construct(
-        private UserRepository $repository
+        private UserRepository $repository,
+        private EmailSender $emailSender,
+        private TokenGenerator $tokenGenerator,
     ) {}
 
     function getAll(): array
@@ -60,6 +66,26 @@ class UserService
         if (!$this->isEmailUnique($entity->email)) {
             throw new DuplicatedEmailException();
         }
+
+        $token = $this->tokenGenerator->generate(
+            domain: 'email_confirmation',
+            payload: ['email' => $entity->email],
+            validUntil: new DateTime('+7 day')
+        );
+
+        error_log("Generated email confirmation token: " . env('EMAIL_VERIFICATION_URL') . '?token=' . $token);
+
+        $this->emailSender->send(
+            new Email(
+                to: $entity->email,
+                subject: 'Mugen - Confirm Email',
+                template: 'emails.confirm_email',
+                templateData: [
+                    'username' => $entity->username,
+                    'confirmation_link' => env('EMAIL_VERIFICATION_URL') . '?token=' . $token,
+                ],
+            )
+        );
 
         return $this->repository->create($entity);
     }

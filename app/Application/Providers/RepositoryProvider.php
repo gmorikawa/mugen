@@ -2,9 +2,11 @@
 
 namespace App\Application\Providers;
 
+use App\Core\Auth\Interfaces\TokenRepository;
 use App\Core\File\Interfaces\FileRepository;
 use App\Core\User\UserRepository;
 use App\Infrastructure\Persistence\Repositories\EloquentFileRepository;
+use App\Infrastructure\Persistence\Repositories\EloquentTokenRepository;
 use App\Infrastructure\Persistence\Repositories\EloquentUserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,6 +16,7 @@ class RepositoryProvider extends ServiceProvider
     {
         $this->app->bind(UserRepository::class, EloquentUserRepository::class);
         $this->app->bind(FileRepository::class, EloquentFileRepository::class);
+        $this->app->bind(TokenRepository::class, EloquentTokenRepository::class);
     }
 
     public function boot(): void {}
