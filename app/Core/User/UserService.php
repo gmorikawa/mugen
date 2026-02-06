@@ -73,8 +73,6 @@ class UserService
             validUntil: new DateTime('+7 day')
         );
 
-        error_log("Generated email confirmation token: " . env('EMAIL_VERIFICATION_URL') . '?token=' . $token);
-
         $this->emailSender->send(
             new Email(
                 to: $entity->email,
@@ -146,5 +144,10 @@ class UserService
     function generateToken(User $user): string
     {
         return $this->repository->generateToken($user->id);
+    }
+
+    function confirmEmail(string $email): User
+    {
+        return $this->repository->confirmEmail($email);
     }
 }

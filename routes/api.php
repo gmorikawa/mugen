@@ -16,6 +16,7 @@ use App\Http\Controllers\API\ColorEncodingController;
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/system-setup', [AuthController::class, 'systemSetup']);
     Route::post('/login', [AuthController::class, 'login']);
+    Route::patch('/email-confirmation', [AuthController::class, 'confirmEmail']);
 });
 
 Route::group(

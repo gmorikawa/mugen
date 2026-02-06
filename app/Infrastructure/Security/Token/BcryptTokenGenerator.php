@@ -14,7 +14,7 @@ class BcryptTokenGenerator implements TokenGenerator
         private readonly TokenRepository $repository
     ) {}
 
-    public function generate(string $domain, array $payload, DateTime $validUntil): string
+    public function generate(string $domain, mixed $payload, DateTime $validUntil): string
     {
         $data = $domain . '|' . json_encode($payload) . '|' . ($validUntil->getTimestamp());
         $token = Hash::make($data);
@@ -31,7 +31,7 @@ class BcryptTokenGenerator implements TokenGenerator
         return $token;
     }
 
-    public function validate(string $domain, string $key): array
+    public function validate(string $domain, string $key): mixed
     {
         $record = $this->repository->findByKey($key);
 
@@ -48,5 +48,10 @@ class BcryptTokenGenerator implements TokenGenerator
         }
 
         return $record->payload;
+    }
+
+    public function revoke(string $key): bool
+    {
+        return $this->repository->delete($key);
     }
 }

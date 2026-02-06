@@ -41,4 +41,13 @@ class AuthController extends Controller
 
         return $this->service->setupFirstAdmin($adminSignup);
     }
+
+    public function confirmEmail(Request $request)
+    {
+        $token = $request->input('token');
+
+        $result = $this->service->confirmEmail($token);
+
+        return ['success' => $result];
+    }
 }

@@ -23,6 +23,7 @@ class EloquentUserRepository implements UserRepository
                 'username' => $item->username,
                 'hashed_password' => $item->password,
                 'role' => UserRole::from($item->role),
+                'email_confirmed_at' => $item->email_verified_at,
                 'profile' => new UserProfile([
                     'fullname' => $item->profile?->fullname,
                     'biography' => $item->profile?->biography,
@@ -44,6 +45,7 @@ class EloquentUserRepository implements UserRepository
                 'username' => $found->username,
                 'hashed_password' => $found->password,
                 'role' => UserRole::from($found->role),
+                'email_confirmed_at' => $found->email_verified_at,
                 'profile' => $foundProfile
                     ? new UserProfile([
                         'fullname' => $foundProfile->fullname,
@@ -66,6 +68,7 @@ class EloquentUserRepository implements UserRepository
                 'username' => $found->username,
                 'hashed_password' => $found->password,
                 'role' => UserRole::from($found->role),
+                'email_confirmed_at' => $found->email_verified_at,
             ])
             : null;
     }
@@ -81,6 +84,7 @@ class EloquentUserRepository implements UserRepository
                 'username' => $found->username,
                 'hashed_password' => $found->password,
                 'role' => UserRole::from($found->role),
+                'email_confirmed_at' => $found->email_verified_at,
             ])
             : null;
     }
@@ -108,6 +112,7 @@ class EloquentUserRepository implements UserRepository
             'username' => $model->username,
             'hashed_password' => $model->password,
             'role' => UserRole::from($model->role),
+            'email_confirmed_at' => $model->email_verified_at,
         ]);
     }
 
@@ -172,5 +177,25 @@ class EloquentUserRepository implements UserRepository
         }
 
         return $model->createToken('auth_token')->plainTextToken;
+    }
+
+    public function confirmEmail(string $email): User
+    {
+        $found = UserModel::where('email', $email)->first();
+        if (!$found) {
+            throw new Exception('User not found');
+        }
+
+        $found->email_verified_at = now();
+        $found->save();
+
+        return new User([
+            'id' => $found->id,
+            'email' => $found->email,
+            'username' => $found->username,
+            'hashed_password' => $found->password,
+            'role' => UserRole::from($found->role),
+            'email_confirmed_at' => $found->email_verified_at,
+        ]);
     }
 }

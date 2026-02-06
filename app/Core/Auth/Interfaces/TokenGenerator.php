@@ -6,6 +6,7 @@ use DateTime;
 
 interface TokenGenerator
 {
-    function generate(string $domain, array $payload, DateTime $validUntil): string;
-    function validate(string $domain, string $token): array;
+    function generate(string $domain, mixed $payload, DateTime $validUntil): string;
+    function validate(string $domain, string $token): mixed;
+    function revoke(string $token): bool;
 }

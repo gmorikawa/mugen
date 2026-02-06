@@ -3,6 +3,7 @@
 namespace App\Core\User;
 
 use App\Shared\Entity\Entity;
+use DateTime;
 
 class User extends Entity
 {
@@ -11,6 +12,7 @@ class User extends Entity
     public readonly string $email;
     public readonly string $password;
     public readonly UserRole $role;
+    public readonly ?DateTime $emailConfirmedAt;
 
     public readonly ?UserProfile $profile;
 
@@ -24,6 +26,9 @@ class User extends Entity
             : ($data['hashed_password'] ?? '');
         $this->role = $data['role'];
         $this->profile = $data['profile'] ?? null;
+        $this->emailConfirmedAt = isset($data['email_confirmed_at'])
+            ? new DateTime($data['email_confirmed_at'])
+            : null;
     }
 
     public function verifyPassword(string $plainPassword): bool
@@ -38,7 +43,7 @@ class User extends Entity
             'username' => $this->username,
             'email' => $this->email,
             'role' => $this->role->value,
-            'profile' => $this->profile?->toObject(),
+            'profile' => $this->profile?->toObject()
         ];
 
         return $object;
