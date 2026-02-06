@@ -1,26 +1,24 @@
 <?php
 
-namespace App\Models;
+namespace App\Infrastructure\Persistence\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class File extends Model {
+class FileModel extends Model {
     use HasFactory, Notifiable, HasUuids;
 
     protected $table = 'files';
 
     protected $primaryKey = 'id';
     protected $keyType = 'string';
-    protected $incremening = false;
+    public $incrementing = false;
 
     protected $fillable = [
         'name',
-        'concrete_name',
         'path',
-        'size',
         'state'
     ];
 

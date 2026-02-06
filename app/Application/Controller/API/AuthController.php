@@ -21,12 +21,12 @@ class AuthController extends Controller
         $session = $this->service->login($username, $password);
 
         return [
-            "token" => $session->getToken(),
-            "loggedUser" => [
-                "id" => $session->getLoggedUser()->getId(),
-                "username" => $session->getLoggedUser()->getUsername(),
-                "email" => $session->getLoggedUser()->getEmail(),
-                "role" => $session->getLoggedUser()->getRole()->value,
+            'token' => $session->getToken(),
+            'loggedUser' => [
+                'id' => $session->getLoggedUser()->getId(),
+                'username' => $session->getLoggedUser()->getUsername(),
+                'email' => $session->getLoggedUser()->getEmail(),
+                'role' => $session->getLoggedUser()->getRole()->value,
             ]
         ];
     }

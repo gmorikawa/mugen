@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Infrastructure\Persistence\Models\FileModel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,6 @@ class Country extends Model
     ];
 
     public function flag(): BelongsTo {
-        return $this->belongsTo(File::class, 'flag_id');
+        return $this->belongsTo(FileModel::class, 'flag_id');
     }
 }

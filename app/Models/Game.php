@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Infrastructure\Persistence\Models\FileModel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,7 +40,7 @@ class Game extends Model
 
     public function cover(): BelongsTo
     {
-        return $this->belongsTo(File::class, 'cover_id');
+        return $this->belongsTo(FileModel::class, 'cover_id');
     }
 
     public function categories()

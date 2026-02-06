@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Infrastructure\Persistence;
+namespace App\Infrastructure\Persistence\Repositories;
 
 use App\Core\User\UserRepository;
 use App\Core\User\User;
 use App\Core\User\UserProfile;
 use App\Core\User\UserRole;
-use App\Models\UserModel;
-use App\Models\UserProfileModel;
+use App\Infrastructure\Persistence\Models\UserModel;
+use App\Infrastructure\Persistence\Models\UserProfileModel;
 use Exception;
 
 class EloquentUserRepository implements UserRepository

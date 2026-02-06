@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Infrastructure\Persistence\Models\FileModel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,7 +36,7 @@ class Image extends Model
     }
 
     public function file(): BelongsTo {
-        return $this->belongsTo(File::class, 'file_id');
+        return $this->belongsTo(FileModel::class, 'file_id');
     }
 
     public function languages(): BelongsToMany

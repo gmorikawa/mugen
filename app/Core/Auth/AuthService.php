@@ -27,11 +27,11 @@ class AuthService
         }
 
         $loggedUser = new LoggedUser([
-            'id' => $foundUser->getId(),
-            'username' => $foundUser->getUsername(),
-            'email' => $foundUser->getEmail(),
-            'role' => $foundUser->getRole(),
-            'profile' => $foundUser->getProfile(),
+            'id' => $foundUser->id,
+            'username' => $foundUser->username,
+            'email' => $foundUser->email,
+            'role' => $foundUser->role,
+            'profile' => $foundUser->profile,
         ]);
         $token = $this->userService->generateToken($foundUser);
 

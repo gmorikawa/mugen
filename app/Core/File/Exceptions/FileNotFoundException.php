@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Exceptions\File;
+namespace App\Core\File\Exceptions;
 
-use App\Exceptions\BusinessException;
+use App\Shared\Exceptions\BusinessException;
 
 class FileNotFoundException extends BusinessException {
-    protected $error_code = "ERR_FILE_001";
-
     protected $error_message = "File does not exists.";
 }

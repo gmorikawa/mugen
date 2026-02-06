@@ -1,6 +1,6 @@
 <?php
 
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\VoltServiceProvider::class,
+    App\Application\Providers\RepositoryProvider::class,
+    App\Application\Providers\StorageProvider::class,
 ];
