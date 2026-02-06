@@ -6,7 +6,6 @@ use App\Application\Controller\API\AuthController;
 use App\Application\Controller\API\UserController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\CountryController;
-use App\Http\Controllers\API\FileController;
 use App\Http\Controllers\API\GameController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\LanguageController;
@@ -47,16 +46,6 @@ Route::group(['prefix' => 'companies'], function () {
     Route::post('/', [CompanyController::class, 'create']);
     Route::patch('/{id}', [CompanyController::class, 'update']);
     Route::delete('/{id}', [CompanyController::class, 'remove']);
-});
-
-Route::group(['prefix' => 'files'], function () {
-    Route::get('/', [FileController::class, 'getAll']);
-    Route::get('/{id}', [FileController::class, 'getById']);
-    Route::post('/', [FileController::class, 'create']);
-    Route::patch('/{id}', [FileController::class, 'update']);
-    Route::delete('/{id}', [FileController::class, 'remove']);
-    Route::post('/{id}/upload', [FileController::class, 'upload']);
-    Route::get('/{id}/download', [FileController::class, 'download']);
 });
 
 Route::group(['prefix' => 'platforms'], function () {
