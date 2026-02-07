@@ -9,7 +9,6 @@ use App\Core\User\LoggedUser;
 use App\Core\User\User;
 use App\Core\User\UserRole;
 use App\Core\User\UserService;
-use InvalidArgumentException;
 
 class AuthService
 {

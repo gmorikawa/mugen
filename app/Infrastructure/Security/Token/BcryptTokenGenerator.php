@@ -39,7 +39,7 @@ class BcryptTokenGenerator implements TokenGenerator
             return [];
         }
 
-        if ($record->validUntil < new \DateTime()) {
+        if ($record->validUntil < new DateTime()) {
             return [];
         }
 

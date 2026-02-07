@@ -5,24 +5,21 @@ namespace App\Infrastructure\Persistence\Repositories;
 use App\Core\Auth\Interfaces\TokenRepository;
 use App\Core\Auth\Token;
 use App\Infrastructure\Persistence\Models\TokenModel;
-use Exception;
 
 class EloquentTokenRepository implements TokenRepository
 {
-    public function findByKey(string $key): Token
+    public function findByKey(string $key): Token | null
     {
         $found = TokenModel::where('key', $key)->first();
 
-        if (!$found) {
-            throw new Exception("Token not found");
-        }
-
-        return Token::fromSerialized(
-            domain: $found->domain,
-            key: $found->key,
-            payload: $found->payload,
-            validUntil: $found->valid_until
-        );
+        return ($found !== null)
+            ? Token::fromSerialized(
+                domain: $found->domain,
+                key: $found->key,
+                payload: $found->payload,
+                validUntil: $found->valid_until
+            )
+            : null;
     }
 
     public function create(Token $token): Token
