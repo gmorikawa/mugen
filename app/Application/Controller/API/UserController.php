@@ -65,4 +65,20 @@ class UserController extends Controller
     {
         return $this->service->remove($id);
     }
+
+    public function updateProfileAvatar(Request $request, String $id)
+    {
+        $avatar = $request->file('avatar');
+
+        $this->service->storeProfileAvatar($id, $avatar);
+
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    public function downloadProfileAvatar(String $id)
+    {
+        return $this->service->retrieveProfileAvatar($id);
+    }
 }

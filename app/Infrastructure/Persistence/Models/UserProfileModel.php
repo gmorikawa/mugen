@@ -29,7 +29,7 @@ class UserProfileModel extends Model
         return $this->belongsTo(UserModel::class, 'user_id');
     }
 
-    public function file(): BelongsTo {
+    public function avatar(): BelongsTo {
         return $this->belongsTo(FileModel::class, 'avatar_id');
     }
 }

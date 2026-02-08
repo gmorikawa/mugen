@@ -27,7 +27,7 @@ class EloquentUserRepository implements UserRepository
                 'profile' => new UserProfile([
                     'fullname' => $item->profile?->fullname,
                     'biography' => $item->profile?->biography,
-                    'avatar' => $item->profile?->avatar_id
+                    'avatar' => $item->profile?->avatar
                 ])
             ]);
         })->toArray();
@@ -50,7 +50,7 @@ class EloquentUserRepository implements UserRepository
                     ? new UserProfile([
                         'fullname' => $foundProfile->fullname,
                         'biography' => $foundProfile->biography,
-                        'avatar' => $foundProfile->avatar_id
+                        'avatar' => $foundProfile->avatar?->toObject() ?? null
                     ])
                     : null
             ])
@@ -142,8 +142,10 @@ class EloquentUserRepository implements UserRepository
         $profileModel->update([
             'fullname' => $entity->profile?->fullname,
             'biography' => $entity->profile?->biography,
-            'avatar' => $entity->profile?->avatar,
+            'avatar_id' => $entity->profile?->avatar?->id,
         ]);
+
+        error_log(print_r($profileModel, true));
 
         return new User([
             'id' => $model->id,
@@ -154,7 +156,7 @@ class EloquentUserRepository implements UserRepository
             'profile' => new UserProfile([
                 'fullname' => $profileModel->fullname,
                 'biography' => $profileModel->biography,
-                'avatar' => $profileModel->avatar,
+                'avatar' => $profileModel->avatar?->toObject() ?? null,
             ]),
         ]);
     }

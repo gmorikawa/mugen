@@ -13,12 +13,7 @@ class EloquentTokenRepository implements TokenRepository
         $found = TokenModel::where('key', $key)->first();
 
         return ($found !== null)
-            ? Token::fromSerialized(
-                domain: $found->domain,
-                key: $found->key,
-                payload: $found->payload,
-                validUntil: $found->valid_until
-            )
+            ? $found->toObject()
             : null;
     }
 
@@ -31,12 +26,7 @@ class EloquentTokenRepository implements TokenRepository
             'valid_until' => $token->getSerializedValidUntil(),
         ]);
 
-        return Token::fromSerialized(
-            domain: $model->domain,
-            key: $model->key,
-            payload: $model->payload,
-            validUntil: $model->valid_until
-        );
+        return $model->toObject();
     }
 
     public function delete(string $key): bool

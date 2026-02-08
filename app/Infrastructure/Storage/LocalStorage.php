@@ -22,7 +22,7 @@ class LocalStorage implements Storage
 
     function read(File $file): mixed
     {
-        return LaravelStorage::download($file->path, $file->name);
+        return LaravelStorage::download($file->path . $file->name, $file->name);
     }
 
     function delete(File $file): bool

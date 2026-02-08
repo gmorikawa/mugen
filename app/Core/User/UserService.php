@@ -3,6 +3,8 @@
 namespace App\Core\User;
 
 use App\Core\Auth\Interfaces\TokenGenerator;
+use App\Core\File\File;
+use App\Core\File\FileService;
 use App\Core\Notification\Email\Email;
 use App\Core\Notification\Email\Interfaces\EmailSender;
 use App\Core\User\Exceptions\DuplicatedEmailException;
@@ -14,9 +16,10 @@ use DateTime;
 class UserService
 {
     public function __construct(
-        private UserRepository $repository,
         private EmailSender $emailSender,
         private TokenGenerator $tokenGenerator,
+        private FileService $fileService,
+        private UserRepository $repository,
     ) {}
 
     function getAll(): array
@@ -114,6 +117,47 @@ class UserService
         ]);
 
         return $this->repository->update($id, $modifiedUser);
+    }
+
+    function retrieveProfileAvatar(String $id)
+    {
+        $user = $this->getById($id);
+
+        if ($user->profile === null || $user->profile->avatar === null) {
+            throw new UserNotFoundException();
+        }
+
+        return $this->fileService->download($user->profile->avatar->id);
+    }
+
+    function storeProfileAvatar(String $id, $avatarStream): User
+    {
+        $user = $this->getById($id);
+        $fileExtension = $avatarStream->getClientOriginalExtension();
+
+        $avatarFile = $this->fileService->create(
+            File::fromArray([
+                'name' => $user->id . '_' . $user->username . '.' . $fileExtension,
+                'path' => 'avatars/',
+            ])
+        );
+
+        $this->fileService->upload($avatarFile->id, $avatarStream);
+
+        $updatedUser = new User([
+            'id' => $user->id,
+            'username' => $user->username,
+            'email' => $user->email,
+            'hashed_password' => $user->password,
+            'role' => $user->role,
+            'profile' => new UserProfile([
+                'fullname' => $user->profile?->fullname,
+                'biography' => $user->profile?->biography,
+                'avatar' => $avatarFile,
+            ]),
+        ]);
+
+        return $this->repository->update($id, $updatedUser);
     }
 
     function remove(String $id): bool

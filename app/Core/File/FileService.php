@@ -11,7 +11,7 @@ class FileService
     function __construct(
         protected Storage $storage,
         protected FileRepository $repository,
-    ) { }
+    ) {}
 
     function getById(String $id)
     {
@@ -26,11 +26,7 @@ class FileService
 
     function create(File $entity)
     {
-        $entity = $this->repository->create(new File([
-            'name' => $entity->name,
-            'path' => $entity->path,
-            'state' => FileState::PENDING,
-        ]));
+        $entity = $this->repository->create($entity);
 
         return $entity;
     }
@@ -45,10 +41,10 @@ class FileService
 
         return $this->repository->update(
             $id,
-            new File([
-                'name' => $entity->name,
-                'path' => $entity->path,
-            ])
+            new File(
+                name: $entity->name,
+                path: $entity->path,
+            )
         );
     }
 
@@ -92,9 +88,20 @@ class FileService
 
     function changeState(String $id, FileState $state)
     {
+        $entity = $this->repository->findById($id);
+
+        if ($entity === null) {
+            throw new FileNotFoundException();
+        }
+
         return $this->repository->update(
             $id,
-            new File(['state' => $state->value]
-        ));
+            new File(
+                id: $entity->id,
+                name: $entity->name,
+                path: $entity->path,
+                state: $state,
+            )
+        );
     }
 }

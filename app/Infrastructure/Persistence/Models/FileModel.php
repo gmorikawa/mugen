@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure\Persistence\Models;
 
+use App\Core\File\File;
+use App\Core\File\FileState;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,4 +31,13 @@ class FileModel extends Model {
             return substr($this->path, 1) . '/' . $this->name;
         }
     }
+
+    public function toObject(): File {
+        return new File(
+            id: $this->id,
+            name: $this->name,
+            path: $this->path,
+            state: FileState::from($this->state),
+        );
+    }    
 }

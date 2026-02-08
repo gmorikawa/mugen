@@ -11,15 +11,30 @@ class File extends Entity
     public readonly string $path;
     public readonly FileState $state;
 
-    public function __construct(array $data)
+    public function __construct(
+        ?string $id = null,
+        string $name,
+        string $path,
+        ?FileState $state = null,
+    )
     {
-        $this->id = $data['id'] ?? null;
-        $this->name = $data['name'];
-        $this->path = $data['path'];
-        $this->state = $data['state'];
+        $this->id = $id ?? null;
+        $this->name = $name;
+        $this->path = $path;
+        $this->state = $state ?? FileState::PENDING;
     }
 
-    function toObject(): array
+    public static function fromArray(array $data): File
+    {
+        return new File(
+            $data['id'] ?? null,
+            $data['name'],
+            $data['path'],
+            isset($data['state']) ? FileState::from($data['state']) : null,
+        );
+    }
+
+    public function toObject(): array
     {
         $object =  [
             'id' => $this->id,
