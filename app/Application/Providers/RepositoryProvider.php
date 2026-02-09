@@ -3,9 +3,13 @@
 namespace App\Application\Providers;
 
 use App\Core\Auth\Interfaces\TokenRepository;
+use App\Core\Category\Interfaces\CategoryRepository;
+use App\Core\Country\Interfaces\CountryRepository;
 use App\Core\File\Interfaces\FileRepository;
 use App\Core\Language\Interfaces\LanguageRepository;
 use App\Core\User\Interfaces\UserRepository;
+use App\Infrastructure\Persistence\Repositories\EloquentCategoryRepository;
+use App\Infrastructure\Persistence\Repositories\EloquentCountryRepository;
 use App\Infrastructure\Persistence\Repositories\EloquentFileRepository;
 use App\Infrastructure\Persistence\Repositories\EloquentLanguageRepository;
 use App\Infrastructure\Persistence\Repositories\EloquentTokenRepository;
@@ -20,6 +24,8 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(FileRepository::class, EloquentFileRepository::class);
         $this->app->bind(TokenRepository::class, EloquentTokenRepository::class);
         $this->app->bind(LanguageRepository::class, EloquentLanguageRepository::class);
+        $this->app->bind(CountryRepository::class, EloquentCountryRepository::class);
+        $this->app->bind(CategoryRepository::class, EloquentCategoryRepository::class);
     }
 
     public function boot(): void {}

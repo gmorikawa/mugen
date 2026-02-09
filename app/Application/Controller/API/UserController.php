@@ -9,7 +9,7 @@ use App\Core\User\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends APIController
 {
     public function __construct(
         protected UserService $service

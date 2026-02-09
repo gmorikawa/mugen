@@ -5,12 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Application\Controller\API\AuthController;
 use App\Application\Controller\API\UserController;
 use App\Application\Controller\API\LanguageController;
+use App\Application\Controller\API\CountryController;
+use App\Application\Controller\API\CategoryController;
 use App\Http\Controllers\API\CompanyController;
-use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\API\GameController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\PlatformController;
-use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ColorEncodingController;
 
 Route::group(['prefix' => 'auth'], function () {
@@ -49,13 +49,36 @@ Route::group(
     }
 );
 
-Route::group(['prefix' => 'countries'], function () {
-    Route::get('/', [CountryController::class, 'getAll']);
-    Route::get('/{id}', [CountryController::class, 'getById']);
-    Route::post('/', [CountryController::class, 'create']);
-    Route::patch('/{id}', [CountryController::class, 'update']);
-    Route::delete('/{id}', [CountryController::class, 'remove']);
-});
+Route::group(
+    [
+        'middleware' => ['auth:sanctum'],
+        'prefix' => 'countries'
+    ],
+    function () {
+        Route::get('/', [CountryController::class, 'getAll']);
+        Route::get('/{id}', [CountryController::class, 'getById']);
+        Route::get('/{id}/flag', [CountryController::class, 'downloadFlag']);
+        Route::post('/', [CountryController::class, 'create']);
+        Route::post('/{id}/flag', [CountryController::class, 'updateFlag']);
+        Route::put('/{id}', [CountryController::class, 'update']);
+        Route::delete('/{id}', [CountryController::class, 'delete']);
+
+    }
+);
+
+Route::group(
+    [
+        'middleware' => ['auth:sanctum'],
+        'prefix' => 'categories'
+    ],
+    function () {
+        Route::get('/', [CategoryController::class, 'getAll']);
+        Route::get('/{id}', [CategoryController::class, 'getById']);
+        Route::post('/', [CategoryController::class, 'create']);
+        Route::put('/{id}', [CategoryController::class, 'update']);
+        Route::delete('/{id}', [CategoryController::class, 'delete']);
+    }
+);
 
 Route::group(['prefix' => 'companies'], function () {
     Route::get('/', [CompanyController::class, 'getAll']);
@@ -71,14 +94,6 @@ Route::group(['prefix' => 'platforms'], function () {
     Route::post('/', [PlatformController::class, 'create']);
     Route::patch('/{id}', [PlatformController::class, 'update']);
     Route::delete('/{id}', [PlatformController::class, 'remove']);
-});
-
-Route::group(['prefix' => 'categories'], function () {
-    Route::get('/', [CategoryController::class, 'getAll']);
-    Route::get('/{id}', [CategoryController::class, 'getById']);
-    Route::post('/', [CategoryController::class, 'create']);
-    Route::patch('/{id}', [CategoryController::class, 'update']);
-    Route::delete('/{id}', [CategoryController::class, 'remove']);
 });
 
 Route::group(['prefix' => 'games'], function () {

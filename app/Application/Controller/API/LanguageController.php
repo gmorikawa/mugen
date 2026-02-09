@@ -4,10 +4,9 @@ namespace App\Application\Controller\API;
 
 use App\Core\Language\Language;
 use App\Core\Language\LanguageService;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class LanguageController extends Controller
+class LanguageController extends APIController
 {
     public function __construct(
         protected LanguageService $service

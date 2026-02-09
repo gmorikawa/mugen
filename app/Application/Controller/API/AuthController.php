@@ -4,10 +4,9 @@ namespace App\Application\Controller\API;
 
 use App\Core\Auth\AdminSignup;
 use App\Core\Auth\AuthService;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AuthController extends Controller
+class AuthController extends APIController
 {
     public function __construct(
         private AuthService $service
