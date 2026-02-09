@@ -17,6 +17,17 @@
 5. Only _admin_ or _managers_ can create new _managers_ or _members_;
 6. Non-members cannot create their own account in the system;
 
+## User Profile
+
+1. All users can updated their own profile information.
+2. A profile information include: 
+    1. Full name.
+    2. Biography.
+    3. Avatar picture.
+3. Thes system does not maintain all previous profile pictures.
+4. The user can use only __PNG__ and __JPEG__ images for profile picture.
+5. A admin user can have access to modify every user profile.
+
 ## File Storage
 
 1. The system allows to store files related to game ROM images and other application images.
