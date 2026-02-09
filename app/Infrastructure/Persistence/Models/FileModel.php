@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class FileModel extends Model {
+class FileModel extends Model
+{
     use HasFactory, Notifiable, HasUuids;
 
     protected $table = 'files';
@@ -24,7 +25,8 @@ class FileModel extends Model {
         'state'
     ];
 
-    public function getFilePathAttribute(): string {
+    public function getFilePathAttribute(): string
+    {
         if (str_ends_with($this->path, '/')) {
             return substr($this->path, 1) . $this->name;
         } else {
@@ -32,12 +34,13 @@ class FileModel extends Model {
         }
     }
 
-    public function toObject(): File {
+    public function toObject(): File
+    {
         return new File(
             id: $this->id,
             name: $this->name,
             path: $this->path,
             state: FileState::from($this->state),
         );
-    }    
+    }
 }

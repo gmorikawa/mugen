@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class TokenModel extends Model {
+class TokenModel extends Model
+{
     use HasFactory, Notifiable, HasUuids;
 
     protected $table = 'tokens';
@@ -24,7 +25,8 @@ class TokenModel extends Model {
         'valid_until'
     ];
 
-    public function toObject(): Token {
+    public function toObject(): Token
+    {
         return Token::fromSerialized(
             domain: $this->domain,
             key: $this->key,

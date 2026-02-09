@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Infrastructure\Persistence\Models;
 
+use App\Core\Language\Language;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Language extends Model
+class LanguageModel extends Model
 {
     use HasFactory, Notifiable, HasUuids;
 
@@ -21,4 +22,12 @@ class Language extends Model
         'name',
         'iso_code'
     ];
+
+    public function toObject(): Language {
+        return new Language([
+            'id' => $this->id,
+            'name' => $this->name,
+            'isoCode' => $this->iso_code
+        ]);
+    }
 }

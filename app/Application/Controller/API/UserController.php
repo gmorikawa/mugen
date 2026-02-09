@@ -65,7 +65,11 @@ class UserController extends Controller
 
     public function delete(string $id)
     {
-        return $this->service->delete($id);
+        $deleted = $this->service->delete($id);
+
+        return [
+            'success' => $deleted
+        ];
     }
 
     public function updateProfileAvatar(Request $request, string $id)

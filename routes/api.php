@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Application\Controller\API\AuthController;
 use App\Application\Controller\API\UserController;
+use App\Application\Controller\API\LanguageController;
 use App\Http\Controllers\API\CompanyController;
 use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\API\GameController;
 use App\Http\Controllers\API\ImageController;
-use App\Http\Controllers\API\LanguageController;
 use App\Http\Controllers\API\PlatformController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ColorEncodingController;
@@ -32,6 +32,20 @@ Route::group(
         Route::post('/{id}/profile/avatar', [UserController::class, 'updateProfileAvatar']);
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'delete']);
+    }
+);
+
+Route::group(
+    [
+        'middleware' => ['auth:sanctum'],
+        'prefix' => 'languages'
+    ],
+    function () {
+        Route::get('/', [LanguageController::class, 'getAll']);
+        Route::get('/{id}', [LanguageController::class, 'getById']);
+        Route::post('/', [LanguageController::class, 'create']);
+        Route::put('/{id}', [LanguageController::class, 'update']);
+        Route::delete('/{id}', [LanguageController::class, 'delete']);
     }
 );
 
@@ -89,12 +103,4 @@ Route::group(['prefix' => 'images'], function () {
     Route::post('/', [ImageController::class, 'create']);
     Route::patch('/{id}', [ImageController::class, 'update']);
     Route::delete('/{id}', [ImageController::class, 'remove']);
-});
-
-Route::group(['prefix' => 'languages'], function () {
-    Route::get('/', [LanguageController::class, 'getAll']);
-    Route::get('/{id}', [LanguageController::class, 'getById']);
-    Route::post('/', [LanguageController::class, 'create']);
-    Route::patch('/{id}', [LanguageController::class, 'update']);
-    Route::delete('/{id}', [LanguageController::class, 'remove']);
 });
