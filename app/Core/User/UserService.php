@@ -11,6 +11,7 @@ use App\Core\User\Exceptions\DuplicatedEmailException;
 use App\Core\User\Exceptions\DuplicatedUsernameException;
 use App\Core\User\Exceptions\ForbiddenAdminRemovalException;
 use App\Core\User\Exceptions\UserNotFoundException;
+use App\Core\User\Interfaces\UserRepository;
 use DateTime;
 
 class UserService
@@ -160,7 +161,7 @@ class UserService
         return $this->repository->update($id, $updatedUser);
     }
 
-    function remove(String $id): bool
+    function delete(String $id): bool
     {
         $user = $this->getById($id);
 
@@ -168,7 +169,7 @@ class UserService
             throw new ForbiddenAdminRemovalException();
         }
 
-        return $this->repository->remove($id);
+        return $this->repository->delete($id);
     }
 
     function isUsernameUnique(String $username, String $ignoreId = ''): bool

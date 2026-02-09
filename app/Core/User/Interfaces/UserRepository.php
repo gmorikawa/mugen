@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Core\User;
+namespace App\Core\User\Interfaces;
+
+use App\Core\User\User;
 
 interface UserRepository
 {
@@ -10,7 +12,7 @@ interface UserRepository
     function findByEmail(string $email): User | null;
     function create(User $entity): User;
     function update(string $id, User $entity): User;
-    function remove(string $id): bool;
+    function delete(string $id): bool;
 
     function generateToken(string $id): string;
     function confirmEmail(string $email): User;

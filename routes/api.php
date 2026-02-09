@@ -31,7 +31,7 @@ Route::group(
         Route::post('/', [UserController::class, 'create']);
         Route::post('/{id}/profile/avatar', [UserController::class, 'updateProfileAvatar']);
         Route::put('/{id}', [UserController::class, 'update']);
-        Route::delete('/{id}', [UserController::class, 'remove']);
+        Route::delete('/{id}', [UserController::class, 'delete']);
     }
 );
 

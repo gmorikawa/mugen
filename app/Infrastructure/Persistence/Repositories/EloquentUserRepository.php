@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Persistence\Repositories;
 
-use App\Core\User\UserRepository;
+use App\Core\User\Interfaces\UserRepository;
 use App\Core\User\User;
 use App\Core\User\UserProfile;
 use App\Core\User\UserRole;
@@ -33,7 +33,7 @@ class EloquentUserRepository implements UserRepository
         })->toArray();
     }
 
-    public function findById(String $id): User | null
+    public function findById(string $id): User | null
     {
         $found = UserModel::find($id);
 
@@ -56,7 +56,7 @@ class EloquentUserRepository implements UserRepository
             : null;
     }
 
-    public function findByUsername(String $username): User | null
+    public function findByUsername(string $username): User | null
     {
         $found = UserModel::where('username', $username)->first();
 
@@ -72,7 +72,7 @@ class EloquentUserRepository implements UserRepository
             : null;
     }
 
-    public function findByEmail(String $email): User | null
+    public function findByEmail(string $email): User | null
     {
         $found = UserModel::where('email', $email)->first();
 
@@ -115,7 +115,7 @@ class EloquentUserRepository implements UserRepository
         ]);
     }
 
-    public function update(String $id, User $entity): User
+    public function update(string $id, User $entity): User
     {
         $model = UserModel::find($id);
         $profileModel = UserProfileModel::find($id);
@@ -160,7 +160,7 @@ class EloquentUserRepository implements UserRepository
         ]);
     }
 
-    public function remove(String $id): bool
+    public function delete(string $id): bool
     {
         $model = UserModel::find($id);
         if (!$model) {
@@ -170,7 +170,7 @@ class EloquentUserRepository implements UserRepository
         return $model->delete();
     }
 
-    public function generateToken(String $id): string
+    public function generateToken(string $id): string
     {
         $model = UserModel::find($id);
         if (!$model) {

@@ -24,7 +24,7 @@ class UserController extends Controller
         }, $users);
     }
 
-    public function getById(String $id)
+    public function getById(string $id)
     {
         $user = $this->service->getById($id);
 
@@ -45,7 +45,7 @@ class UserController extends Controller
         return $created->toObject();
     }
 
-    public function update(Request $request, String $id)
+    public function update(Request $request, string $id)
     {
         $entity = new User([
             'email' => $request->input('email'),
@@ -63,12 +63,12 @@ class UserController extends Controller
         return $updated->toObject();
     }
 
-    public function remove(String $id)
+    public function delete(string $id)
     {
-        return $this->service->remove($id);
+        return $this->service->delete($id);
     }
 
-    public function updateProfileAvatar(Request $request, String $id)
+    public function updateProfileAvatar(Request $request, string $id)
     {
         $avatar = $request->file('avatar');
 
@@ -79,7 +79,7 @@ class UserController extends Controller
         ];
     }
 
-    public function downloadProfileAvatar(String $id)
+    public function downloadProfileAvatar(string $id)
     {
         return $this->service->retrieveProfileAvatar($id);
     }
