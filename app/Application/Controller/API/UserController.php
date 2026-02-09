@@ -40,7 +40,9 @@ class UserController extends Controller
             'role' => UserRole::from($request->input('role')),
         ]);
 
-        return $this->service->create($entity);
+        $created = $this->service->create($entity);
+
+        return $created->toObject();
     }
 
     public function update(Request $request, String $id)
@@ -72,9 +74,9 @@ class UserController extends Controller
 
         $this->service->storeProfileAvatar($id, $avatar);
 
-        return response()->json([
-            'success' => true,
-        ]);
+        return [
+            'success' => true
+        ];
     }
 
     public function downloadProfileAvatar(String $id)

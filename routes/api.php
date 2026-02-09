@@ -29,8 +29,8 @@ Route::group(
         Route::get('/{id}', [UserController::class, 'getById']);
         Route::get('/{id}/profile/avatar', [UserController::class, 'downloadProfileAvatar']);
         Route::post('/', [UserController::class, 'create']);
-        Route::put('/{id}', [UserController::class, 'update']);
         Route::post('/{id}/profile/avatar', [UserController::class, 'updateProfileAvatar']);
+        Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'remove']);
     }
 );

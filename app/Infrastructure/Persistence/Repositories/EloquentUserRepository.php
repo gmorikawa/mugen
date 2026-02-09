@@ -27,7 +27,7 @@ class EloquentUserRepository implements UserRepository
                 'profile' => new UserProfile([
                     'fullname' => $item->profile?->fullname,
                     'biography' => $item->profile?->biography,
-                    'avatar' => $item->profile?->avatar->toObject() ?? null,
+                    'avatar' => $item->profile?->avatar?->toObject() ?? null,
                 ])
             ]);
         })->toArray();
