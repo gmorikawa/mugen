@@ -7,11 +7,11 @@ use App\Application\Controller\API\UserController;
 use App\Application\Controller\API\LanguageController;
 use App\Application\Controller\API\CountryController;
 use App\Application\Controller\API\CategoryController;
-use App\Http\Controllers\API\CompanyController;
+use App\Application\Controller\API\ColorEncodingController;
+use App\Application\Controller\API\CompanyController;
+use App\Application\Controller\API\PlatformController;
 use App\Http\Controllers\API\GameController;
 use App\Http\Controllers\API\ImageController;
-use App\Http\Controllers\API\PlatformController;
-use App\Http\Controllers\API\ColorEncodingController;
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/system-setup', [AuthController::class, 'systemSetup']);
@@ -62,7 +62,6 @@ Route::group(
         Route::post('/{id}/flag', [CountryController::class, 'updateFlag']);
         Route::put('/{id}', [CountryController::class, 'update']);
         Route::delete('/{id}', [CountryController::class, 'delete']);
-
     }
 );
 
@@ -80,21 +79,47 @@ Route::group(
     }
 );
 
-Route::group(['prefix' => 'companies'], function () {
-    Route::get('/', [CompanyController::class, 'getAll']);
-    Route::get('/{id}', [CompanyController::class, 'getById']);
-    Route::post('/', [CompanyController::class, 'create']);
-    Route::patch('/{id}', [CompanyController::class, 'update']);
-    Route::delete('/{id}', [CompanyController::class, 'remove']);
-});
+Route::group(
+    [
+        'middleware' => ['auth:sanctum'],
+        'prefix' => 'companies'
+    ],
+    function () {
+        Route::get('/', [CompanyController::class, 'getAll']);
+        Route::get('/{id}', [CompanyController::class, 'getById']);
+        Route::post('/', [CompanyController::class, 'create']);
+        Route::put('/{id}', [CompanyController::class, 'update']);
+        Route::delete('/{id}', [CompanyController::class, 'delete']);
+    }
+);
 
-Route::group(['prefix' => 'platforms'], function () {
-    Route::get('/', [PlatformController::class, 'getAll']);
-    Route::get('/{id}', [PlatformController::class, 'getById']);
-    Route::post('/', [PlatformController::class, 'create']);
-    Route::patch('/{id}', [PlatformController::class, 'update']);
-    Route::delete('/{id}', [PlatformController::class, 'remove']);
-});
+Route::group(
+    [
+        'middleware' => ['auth:sanctum'],
+        'prefix' => 'platforms'
+    ],
+    function () {
+        Route::get('/', [PlatformController::class, 'getAll']);
+        Route::get('/{id}', [PlatformController::class, 'getById']);
+        Route::post('/', [PlatformController::class, 'create']);
+        Route::put('/{id}', [PlatformController::class, 'update']);
+        Route::delete('/{id}', [PlatformController::class, 'delete']);
+    }
+);
+
+Route::group(
+    [
+        'middleware' => ['auth:sanctum'],
+        'prefix' => 'color-encodings'
+    ],
+    function () {
+        Route::get('/', [ColorEncodingController::class, 'getAll']);
+        Route::get('/{id}', [ColorEncodingController::class, 'getById']);
+        Route::post('/', [ColorEncodingController::class, 'create']);
+        Route::put('/{id}', [ColorEncodingController::class, 'update']);
+        Route::delete('/{id}', [ColorEncodingController::class, 'delete']);
+    }
+);
 
 Route::group(['prefix' => 'games'], function () {
     Route::get('/', [GameController::class, 'getAll']);
@@ -102,14 +127,6 @@ Route::group(['prefix' => 'games'], function () {
     Route::post('/', [GameController::class, 'create']);
     Route::patch('/{id}', [GameController::class, 'update']);
     Route::delete('/{id}', [GameController::class, 'remove']);
-});
-
-Route::group(['prefix' => 'color-encodings'], function () {
-    Route::get('/', [ColorEncodingController::class, 'getAll']);
-    Route::get('/{id}', [ColorEncodingController::class, 'getById']);
-    Route::post('/', [ColorEncodingController::class, 'create']);
-    Route::patch('/{id}', [ColorEncodingController::class, 'update']);
-    Route::delete('/{id}', [ColorEncodingController::class, 'remove']);
 });
 
 Route::group(['prefix' => 'images'], function () {

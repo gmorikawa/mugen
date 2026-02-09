@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Infrastructure\Persistence\Models;
 
+use App\Core\ColorEncoding\ColorEncoding;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class ColorEncoding extends Model
+class ColorEncodingModel extends Model
 {
     use HasFactory, Notifiable, HasUuids;
 
@@ -21,4 +22,12 @@ class ColorEncoding extends Model
         'name',
         'description'
     ];
+
+    public function toObject(): ColorEncoding {
+        return new ColorEncoding([
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description
+        ]);
+    }
 }
