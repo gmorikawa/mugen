@@ -31,6 +31,11 @@ class UserModel extends Authenticatable
         'remember_token',
     ];
 
+    public function profile()
+    {
+        return $this->hasOne(UserProfileModel::class, 'user_id', 'id');
+    }
+
     protected function casts(): array
     {
         return [

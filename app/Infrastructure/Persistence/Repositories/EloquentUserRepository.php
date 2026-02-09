@@ -27,7 +27,7 @@ class EloquentUserRepository implements UserRepository
                 'profile' => new UserProfile([
                     'fullname' => $item->profile?->fullname,
                     'biography' => $item->profile?->biography,
-                    'avatar' => $item->profile?->avatar
+                    'avatar' => $item->profile?->avatar->toObject() ?? null,
                 ])
             ]);
         })->toArray();
@@ -36,7 +36,6 @@ class EloquentUserRepository implements UserRepository
     public function findById(String $id): User | null
     {
         $found = UserModel::find($id);
-        $foundProfile = UserProfileModel::find($id);
 
         return $found
             ? new User([
@@ -46,11 +45,11 @@ class EloquentUserRepository implements UserRepository
                 'hashed_password' => $found->password,
                 'role' => UserRole::from($found->role),
                 'email_confirmed_at' => $found->email_verified_at,
-                'profile' => $foundProfile
+                'profile' => $found->profile
                     ? new UserProfile([
-                        'fullname' => $foundProfile->fullname,
-                        'biography' => $foundProfile->biography,
-                        'avatar' => $foundProfile->avatar?->toObject() ?? null
+                        'fullname' => $found->profile->fullname,
+                        'biography' => $found->profile->biography,
+                        'avatar' => $found->profile->avatar?->toObject() ?? null
                     ])
                     : null
             ])
